@@ -74,48 +74,48 @@ vim.keymap.set("n", "<Leader>u", ":UndotreeToggle<CR>", { desc = "Undo tree", no
 -- LSP
 -- See `:help lspconfig-all` for the list of available language servers.
 local lspconfig = require("lspconfig")
-vim.lsp.set_log_level('info')
+vim.lsp.set_log_level("info")
 
 local function reload_workspace(bufnr)
-    bufnr = lspconfig.util.validate_bufnr(bufnr)
-    local clients = vim.lsp.get_active_clients { name = 'rust_analyzer', bufnr = bufnr }
-    for _, client in ipairs(clients) do
-        vim.notify 'Reloading PureScript Workspace'
-        client.request('load', nil, function(err)
-            if err then
-                error(tostring(err))
-            end
-            vim.notify 'PureScript workspace reloaded'
-        end, 0)
-    end
+	bufnr = lspconfig.util.validate_bufnr(bufnr)
+	local clients = vim.lsp.get_active_clients({ name = "rust_analyzer", bufnr = bufnr })
+	for _, client in ipairs(clients) do
+		vim.notify("Reloading PureScript Workspace")
+		client.request("load", nil, function(err)
+			if err then
+				error(tostring(err))
+			end
+			vim.notify("PureScript workspace reloaded")
+		end, 0)
+	end
 end
 
 lspconfig.lua_ls.setup({
-    settings = {
-        Lua = {
-            diagnostics = {
-                globals = { 'vim' }
-            }
-        }
-    }
+	settings = {
+		Lua = {
+			diagnostics = {
+				globals = { "vim" },
+			},
+		},
+	},
 })
 
 lspconfig.purescriptls.setup({
-    root_dir = lspconfig.util.root_pattern("spago.dhall", "spago.yaml"),
-    commands = {
-        PureScriptReload = {
-            function()
-                reload_workspace(0)
-            end,
-            description = 'Reload current PureScript workspace',
-        },
-    },
-    settings = {
-        purescript = {
-            addSpagoSources = true,
-            formatter = "purty",
-        },
-    },
+	root_dir = lspconfig.util.root_pattern("spago.dhall", "spago.yaml"),
+	commands = {
+		PureScriptReload = {
+			function()
+				reload_workspace(0)
+			end,
+			description = "Reload current PureScript workspace",
+		},
+	},
+	settings = {
+		purescript = {
+			addSpagoSources = true,
+			formatter = "purty",
+		},
+	},
 })
 
 lspconfig.tsserver.setup({})
@@ -127,7 +127,7 @@ vim.keymap.set("n", "<Leader>gr", vim.lsp.buf.references)
 vim.keymap.set("n", "©p", vim.diagnostic.goto_prev)
 vim.keymap.set("n", "©n", vim.diagnostic.goto_next)
 vim.keymap.set("n", "Œ", function()
-    vim.lsp.buf.format({ async = true })
+	vim.lsp.buf.format({ async = true })
 end, { desc = "Reformat buffer" })
 
 local palette = require("palette").palette
