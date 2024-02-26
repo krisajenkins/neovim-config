@@ -129,3 +129,7 @@ vim.keymap.set("n", "©n", vim.diagnostic.goto_next)
 vim.keymap.set("n", "Œ", function()
     vim.lsp.buf.format({ async = true })
 end, { desc = "Reformat buffer" })
+
+local palette = require("palette").palette
+vim.api.nvim_set_hl(0, "Comment", { ctermfg = palette.yellow })
+vim.api.nvim_set_hl(0, "purescriptModuleParams", { ctermfg = palette.cyan })
