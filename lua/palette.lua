@@ -1,7 +1,7 @@
 -- Note: To find which highlight name you need to use, put the 
 --   cursor over it and type `:Inspect`.
 --
--- Note: This is a useful xtemr-256 color chart:
+-- Note: This is a useful xterm-256 color chart:
 --   https://upload.wikimedia.org/wikipedia/commons/1/15/Xterm_256color_chart.svg
 local M = {}
 
