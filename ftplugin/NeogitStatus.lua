@@ -18,9 +18,11 @@ local hl_store = {
     NeogitBranchHead = { ctermfg = palette.blue },
     NeogitRemote = { ctermfg = palette.green },
     NeogitObjectId = { ctermfg = palette.yellow },
+    NeogitSectionHeader = { ctermfg = palette.cyan },
     Comment = { ctermfg = palette.yellow },
 }
 
 for group, hl in pairs(hl_store) do
+    -- TODO This replacing the existing definition. It would be nicer to merge it in.
     vim.api.nvim_set_hl(0, group, hl)
 end
