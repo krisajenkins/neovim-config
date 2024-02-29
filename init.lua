@@ -122,20 +122,6 @@ vim.keymap.set("n", "<Leader>u", ":UndotreeToggle<CR>", { desc = "Undo tree", no
 local lspconfig = require("lspconfig")
 vim.lsp.set_log_level("info")
 
-local function reload_workspace(bufnr)
-    bufnr = lspconfig.util.validate_bufnr(bufnr)
-    local clients = vim.lsp.get_active_clients({ name = "purescriptls", bufnr = bufnr })
-    for _, client in ipairs(clients) do
-        vim.notify("Reloading PureScript Workspace")
-        client.request("load", nil, function(err)
-            if err then
-                error(tostring(err))
-            end
-            vim.notify("PureScript workspace reloaded")
-        end, 0)
-    end
-end
-
 lspconfig.lua_ls.setup({
     settings = {
         Lua = {
@@ -148,14 +134,6 @@ lspconfig.lua_ls.setup({
 
 lspconfig.purescriptls.setup({
     root_dir = lspconfig.util.root_pattern("spago.dhall", "spago.yaml"),
-    commands = {
-        PureScriptReload = {
-            function()
-                reload_workspace(0)
-            end,
-            description = "Reload current PureScript workspace",
-        },
-    },
     settings = {
         purescript = {
             addSpagoSources = true,
