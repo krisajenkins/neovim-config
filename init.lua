@@ -198,11 +198,14 @@ require("lazy").setup({
 	"MunifTanjim/nui.nvim",
 	"nvim-neo-tree/neo-tree.nvim", -- Filetree browser
 
-	"nvim-lua/plenary.nvim", -- Magit dep
-	"sindrets/diffview.nvim", -- Magit dep
 	{ -- Magit
 		"NeogitOrg/neogit",
-		event = "VimEnter",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"sindrets/diffview.nvim",
+		},
+		lazy = true,
+		event = "VeryLazy",
 		config = function()
 			require("neogit").setup()
 			vim.keymap.set("n", "<Leader>gs", ":Neogit cwd=%:p:h<CR>", { desc = "[G]it [S]tatus", noremap = true })
