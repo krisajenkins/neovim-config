@@ -212,9 +212,10 @@ require("lazy").setup({
 	"kylechui/nvim-surround",
 	"tomasr/molokai", -- Theme
 
-	"purescript-contrib/purescript-vim", -- Purescript Support
-	{
-		-- Popular LSP configurations
+	{ -- Purescript Support
+		"purescript-contrib/purescript-vim",
+	},
+	{ -- Popular LSP configurations
 		"neovim/nvim-lspconfig",
 
 		config = function()
