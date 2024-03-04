@@ -125,6 +125,7 @@ require("lazy").setup({
 					"javascript",
 					"html",
 					"org",
+					"gleam",
 					"typescript",
 				},
 				sync_install = false,
@@ -132,6 +133,10 @@ require("lazy").setup({
 				indent = { enable = true },
 			})
 		end,
+	},
+	{
+		"gleam-lang/gleam.vim",
+		config = function() end,
 	},
 
 	{ -- Statusline
@@ -228,6 +233,7 @@ require("lazy").setup({
 			})
 
 			lspconfig.hls.setup({})
+			lspconfig.gleam.setup({})
 			lspconfig.purescriptls.setup({
 				root_dir = lspconfig.util.root_pattern("spago.dhall", "spago.yaml"),
 				settings = {
