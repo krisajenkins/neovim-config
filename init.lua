@@ -282,6 +282,7 @@ vim.keymap.set("n", "<Leader>gf", telescope_builtin.find_files, { desc = "[F]ile
 vim.keymap.set("n", "<Leader>gg", telescope_builtin.live_grep, { desc = "Live [G]rep" })
 vim.keymap.set("n", "<Leader>gb", telescope_builtin.buffers, { desc = "[B]uffer finder" })
 vim.keymap.set("n", "<Leader>ga", telescope_builtin.resume, { desc = "Go [A]gain (resume previous search)" })
+vim.keymap.set("n", "<Leader>go", telescope_builtin.oldfiles, { desc = "Go [O]ld files" })
 vim.keymap.set("n", "<Leader>gM", telescope_builtin.help_tags, { desc = "[M]anual" })
 
 require("telescope").load_extension("bookmarks")
