@@ -1,28 +1,10 @@
-local palette = require('palette').palette
-
--- Use
 local hl_store = {
-    NeogitDiffAdd = { ctermfg = palette.green },
-    NeogitDiffChange = { ctermfg = palette.rose, ctermbg = palette.yellow },
-    NeogitDiffDelete = { ctermfg = palette.red },
-    NeogitDiffText = { ctermbg = palette.grey },
-    NeogitGraphAuthor = { ctermfg = palette.orange },
-    NeogitGraphGreen = { ctermfg = palette.green },
-    NeogitGraphCyan = { ctermfg = palette.cyan },
-    NeogitGraphBlue = { ctermfg = palette.cyan },
-    NeogitGraphPurple = { ctermfg = palette.purple },
-    NeogitGraphOrange = { ctermfg = palette.orange },
-    NeogitTagName = { ctermfg = palette.yellow },
-    NeogitHeadRegion = { ctermfg = palette.blue },
-    NeogitBranch = { ctermfg = palette.blue },
-    NeogitBranchHead = { ctermfg = palette.blue },
-    NeogitRemote = { ctermfg = palette.green },
-    NeogitObjectId = { ctermfg = palette.yellow },
-    NeogitSectionHeader = { ctermfg = palette.cyan },
-    Comment = { ctermfg = palette.yellow },
+    NeogitDiffAdd = { link = "DiffAdd" },
+    NeogitDiffChange = { link = "DiffChange" },
+    NeogitDiffDelete = { link = "DiffDelete" },
+    NeogitDiffText = { link = "DiffText" },
 }
 
 for group, hl in pairs(hl_store) do
-    -- TODO This replacing the existing definition. It would be nicer to merge it in.
     vim.api.nvim_set_hl(0, group, hl)
 end
