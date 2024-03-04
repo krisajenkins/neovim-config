@@ -118,15 +118,15 @@ require("lazy").setup({
 
 			configs.setup({
 				ensure_installed = {
+					"gleam",
+					"html",
+					"javascript",
 					"lua",
+					"org",
+					"purescript",
+					"typescript",
 					"vim",
 					"vimdoc",
-					"purescript",
-					"javascript",
-					"html",
-					"org",
-					"gleam",
-					"typescript",
 				},
 				sync_install = false,
 				highlight = { enable = true },
