@@ -122,6 +122,7 @@ require("lazy").setup({
 					"html",
 					"javascript",
 					"lua",
+					"markdown",
 					"org",
 					"purescript",
 					"typescript",
