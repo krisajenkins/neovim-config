@@ -49,6 +49,7 @@ require("lazy").setup({
 	--------------------------------------------------------------
 	{
 		"epwalsh/obsidian.nvim",
+		lazy = true,
 		config = function()
 			require("obsidian").setup({
 				workspaces = { { name = "Personal", path = "~/Documents/Kris Jenkins' Notes/" } },
@@ -62,6 +63,7 @@ require("lazy").setup({
 	},
 	{
 		"renerocksai/telekasten.nvim",
+		lazy = true,
 		config = function()
 			local telekasten = require("telekasten")
 			telekasten.setup({
@@ -73,9 +75,10 @@ require("lazy").setup({
 	{
 		"nvim-orgmode/orgmode",
 		dependencies = {
-			{ "nvim-treesitter/nvim-treesitter", lazy = true },
+			{ "nvim-treesitter/nvim-treesitter" },
 		},
 		ft = "org",
+		lazy = true,
 		config = function()
 			-- Load treesitter grammar for org
 			local orgmode = require("orgmode")
