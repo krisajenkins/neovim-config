@@ -189,7 +189,12 @@ require("lazy").setup({
 	{ -- Suggest keyboard shortcuts
 		"folke/which-key.nvim",
 		config = function()
-			require("which-key").setup()
+			local which = require("which-key")
+			which.setup()
+			which.register({
+				["<leader>s"] = { name = "[G]o to", _ = "which_key_ignore" },
+				["<leader>t"] = { name = "[T]ags & Bookmarks", _ = "which_key_ignore" },
+			})
 		end,
 	},
 	"Lokaltog/vim-easymotion", -- Jump around
@@ -273,17 +278,19 @@ vim.cmd("colorscheme molokai")
 
 -- Plugins that need additional setup/configuration.
 local telescope_builtin = require("telescope.builtin")
-vim.keymap.set("n", "<Leader>gf", telescope_builtin.find_files, { desc = "File finder" })
-vim.keymap.set("n", "<Leader>gg", telescope_builtin.live_grep, { desc = "Live grep" })
-vim.keymap.set("n", "<Leader>gb", telescope_builtin.buffers, { desc = "Buffer finder" })
+vim.keymap.set("n", "<Leader>gf", telescope_builtin.find_files, { desc = "[F]ile finder" })
+vim.keymap.set("n", "<Leader>gg", telescope_builtin.live_grep, { desc = "Live [G]rep" })
+vim.keymap.set("n", "<Leader>gb", telescope_builtin.buffers, { desc = "[B]uffer finder" })
+vim.keymap.set("n", "<Leader>ga", telescope_builtin.resume, { desc = "Go [A]gain (resume previous search)" })
+vim.keymap.set("n", "<Leader>gM", telescope_builtin.help_tags, { desc = "[M]anual" })
 
 require("telescope").load_extension("bookmarks")
 local bookmarks = require("bookmarks")
-vim.keymap.set("n", "<Leader>ta", bookmarks.bookmark_toggle, { desc = "Bookmark Toggle", noremap = true })
-vim.keymap.set("n", "<Leader>tc", bookmarks.bookmark_ann, { desc = "Bookmark Classify", noremap = true })
-vim.keymap.set("n", "<Leader>tl", ":Telescope bookmarks list<CR>", { desc = "Bookmark Browse", noremap = true })
+vim.keymap.set("n", "<Leader>ta", bookmarks.bookmark_toggle, { desc = "Bookmark [A]dd/remove", noremap = true })
+vim.keymap.set("n", "<Leader>tc", bookmarks.bookmark_ann, { desc = "Bookmark [C]lassify", noremap = true })
+vim.keymap.set("n", "<Leader>tl", ":Telescope bookmarks list<CR>", { desc = "Bookmark [L]ist", noremap = true })
 
-vim.keymap.set("n", "<Leader>ge", ":TroubleToggle<CR>", { desc = "Show errors", noremap = true })
+vim.keymap.set("n", "<Leader>ge", ":Telescope diagnostics<CR>", { desc = "[G]o to [E]rrors", noremap = true })
 vim.keymap.set("n", "<Leader>gt", ":Neotree toggle<CR>", { desc = "File tree", noremap = true })
 vim.keymap.set("n", "<Leader>u", ":Telescope undo<CR>", { desc = "Undo tree", noremap = true })
 
