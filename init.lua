@@ -214,7 +214,7 @@ require("lazy").setup({
 		event = "VeryLazy",
 		config = function()
 			require("neogit").setup()
-			vim.keymap.set("n", "<Leader>gs", ":Neogit cwd=%:p:h<CR>", { desc = "[G]it [S]tatus", noremap = true })
+			vim.keymap.set("n", "<Leader>gs", ":Neogit cwd=%:p:h<CR>", { desc = "Git [S]tatus", noremap = true })
 		end,
 	},
 
@@ -283,7 +283,7 @@ vim.keymap.set("n", "<Leader>gf", telescope_builtin.find_files, { desc = "[F]ile
 vim.keymap.set("n", "<Leader>gg", telescope_builtin.live_grep, { desc = "Live [G]rep" })
 vim.keymap.set("n", "<Leader>gb", telescope_builtin.buffers, { desc = "[B]uffer finder" })
 vim.keymap.set("n", "<Leader>ga", telescope_builtin.resume, { desc = "Go [A]gain (resume previous search)" })
-vim.keymap.set("n", "<Leader>go", telescope_builtin.oldfiles, { desc = "Go [O]ld files" })
+vim.keymap.set("n", "<Leader>go", telescope_builtin.oldfiles, { desc = "[O]ld files" })
 vim.keymap.set("n", "<Leader>gM", telescope_builtin.help_tags, { desc = "[M]anual" })
 
 require("telescope").load_extension("bookmarks")
@@ -292,7 +292,7 @@ vim.keymap.set("n", "<Leader>ta", bookmarks.bookmark_toggle, { desc = "Bookmark 
 vim.keymap.set("n", "<Leader>tc", bookmarks.bookmark_ann, { desc = "Bookmark [C]lassify", noremap = true })
 vim.keymap.set("n", "<Leader>tl", ":Telescope bookmarks list<CR>", { desc = "Bookmark [L]ist", noremap = true })
 
-vim.keymap.set("n", "<Leader>ge", ":Telescope diagnostics<CR>", { desc = "[G]o to [E]rrors", noremap = true })
+vim.keymap.set("n", "<Leader>ge", ":TroubleToggle<CR>", { desc = "[E]rrors", noremap = true })
 vim.keymap.set("n", "<Leader>gt", ":Neotree toggle<CR>", { desc = "File tree", noremap = true })
 vim.keymap.set("n", "<Leader>u", ":Telescope undo<CR>", { desc = "Undo tree", noremap = true })
 
