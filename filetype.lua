@@ -1,5 +1,5 @@
 vim.filetype.add({
-	extension = {
-		-- purs = "purescript",
-	},
+  extension = {
+    -- purs = "purescript",
+  },
 })

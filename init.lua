@@ -1,19 +1,19 @@
 ------------------------------------------------------------
 -- Core Key mappings
 ------------------------------------------------------------
-vim.keymap.set("i", "jk", "<esc>", { noremap = true })
-vim.g.mapleader = ","
-vim.g.maplocalleader = ","
+vim.keymap.set('i', 'jk', '<esc>', { noremap = true })
+vim.g.mapleader = ','
+vim.g.maplocalleader = ','
 
 ------------------------------------------------------------
 -- Core Options
 ------------------------------------------------------------
 vim.g.do_filetype_lua = 1
-vim.o.diffopt = "iwhite,filler"
+vim.o.diffopt = 'iwhite,filler'
 vim.o.wrap = true
 vim.o.number = false
 vim.o.ruler = true
-vim.o.showbreak = "↪"
+vim.o.showbreak = '↪'
 vim.o.linebreak = true
 vim.o.tabstop = 4
 vim.o.smarttab = true
