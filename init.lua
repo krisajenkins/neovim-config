@@ -4,27 +4,37 @@
 vim.keymap.set('i', 'jk', '<esc>', { noremap = true })
 vim.g.mapleader = ','
 vim.g.maplocalleader = ','
+vim.g.do_filetype_lua = 1
 
 ------------------------------------------------------------
 -- Core Options
 ------------------------------------------------------------
-vim.g.do_filetype_lua = 1
-vim.o.diffopt = 'iwhite,filler'
-vim.o.wrap = true
-vim.o.number = false
-vim.o.ruler = true
-vim.o.showbreak = '↪'
-vim.o.linebreak = true
-vim.o.tabstop = 4
-vim.o.smarttab = true
-vim.o.smartindent = true
-vim.o.expandtab = true
-vim.o.shiftwidth = 4
-vim.o.ignorecase = true
-vim.o.smartcase = true
-vim.o.termguicolors = true
-vim.opt.mouse = "a"
+vim.opt.diffopt = 'iwhite,filler'
+vim.opt.signcolumn = 'yes'
+vim.opt.wrap = true
+vim.opt.number = false
+vim.opt.ruler = true
+vim.opt.showbreak = '↪'
+vim.opt.linebreak = true
+vim.opt.tabstop = 4
+vim.opt.smarttab = true
+vim.opt.smartindent = true
+vim.opt.expandtab = true
+vim.opt.shiftwidth = 4
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+vim.opt.termguicolors = true
+vim.opt.mouse = 'a'
 vim.opt.conceallevel = 2
+
+vim.opt.breakindent = true
+vim.opt.hlsearch = true
+vim.opt.inccommand = 'split'
+vim.opt.splitbelow = true
+vim.opt.splitright = true
+vim.opt.undofile = true
+vim.opt.timeoutlen = 300
+vim.opt.updatetime = 250
 
 ------------------------------------------------------------
 -- Plugins
