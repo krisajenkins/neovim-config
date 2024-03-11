@@ -185,7 +185,7 @@ require('lazy').setup({
         config = function()
             require('telescope').load_extension('telescope_kafka')
             require('telescope_kafka').setup({
-                cat_path = '/nix/store/f5mjzhssy0p164azn8vk4vqh1yi4xazq-kcat/bin/kcat',
+                kcat_path = '/nix/store/f5mjzhssy0p164azn8vk4vqh1yi4xazq-kcat/bin/kcat',
             })
             vim.keymap.set(
                 'n',
