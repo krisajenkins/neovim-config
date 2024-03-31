@@ -1,6 +1,6 @@
 vim.filetype.add({
-  extension = {
-    -- purs = "purescript",
-    mojo = "mojo",
-  },
+    extension = {
+        mojo = 'mojo',
+        p8 = 'pico8',
+    },
 })
