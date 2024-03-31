@@ -535,7 +535,16 @@ require('lazy').setup({
             })
         end,
     },
-    'Lokaltog/vim-easymotion', -- Jump around
+    {
+        'https://github.com/smoka7/hop.nvim',
+        config = function()
+            require('hop').setup()
+            set_leader_mappings {
+                { keys = 'w', fn = ':HopWord<CR>', desc = 'Hop to [W]ord' },
+                { keys = 'c', fn = ':HopChar1<CR>', desc = 'Hop to Char' },
+            }
+        end,
+    },
 
     'nvim-tree/nvim-web-devicons', -- Pretty fonticons.
     'MunifTanjim/nui.nvim',
