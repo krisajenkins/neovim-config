@@ -1,302 +1,6 @@
-------------------------------------------------------------
--- Support Utils
-------------------------------------------------------------
----@class LeaderMapping
----@field keys string
----@field fn fun() | string
----@field desc string
+local set_leader_mappings = require('utils').set_leader_mappings
 
----@param mappings LeaderMapping[]
-local set_leader_mappings = function(mappings)
-    for _, mapping in ipairs(mappings) do
-        vim.keymap.set('n', '<Leader>' .. mapping.keys, mapping.fn, { desc = mapping.desc })
-    end
-end
-
---------------------------------------------------------------
--- Plugins
---------------------------------------------------------------
---------------------------------------------------------------
--- Evaluating
---------------------------------------------------------------
-local evaluating = {
-    { -- Database tools
-        'tpope/vim-dadbod',
-        event = 'VeryLazy',
-        config = function() end,
-    },
-    {
-        'dawsers/edit-code-block.nvim',
-        event = 'VeryLazy',
-        opts = {},
-    },
-    {
-        'Wansmer/treesj',
-        event = 'VeryLazy',
-        opts = {},
-    },
-    {
-        'natecraddock/workspaces.nvim',
-        dependencies = {
-            'nvim-telescope/telescope.nvim',
-        },
-        event = 'VeryLazy',
-        opts = {},
-        config = function()
-            require('telescope').load_extension('workspaces')
-            require('workspaces').setup({
-                hooks = {
-                    open = { 'Neotree', 'Telescope find_files' },
-                },
-            })
-
-            set_leader_mappings {
-                { keys = 'gw', fn = ':Telescope workspaces<CR>', desc = 'browse [W]orkspaces' },
-            }
-        end,
-    },
-    {
-        'google/executor.nvim',
-        dependencies = {
-            'MunifTanjim/nui.nvim',
-        },
-        event = 'VeryLazy',
-        config = function()
-            local executor = require('executor')
-            executor.setup { use_split = false }
-            vim.keymap.set('n', '<leader>xr', executor.commands.run, { desc = 'e[X]ecutor [R]un' })
-            vim.keymap.set(
-                'n',
-                '<leader>xv',
-                executor.commands.toggle_detail,
-                { desc = 'e[X]ecutor [V]iew' }
-            )
-        end,
-    },
-    { 'akinsho/toggleterm.nvim', version = '*', config = true },
-    -- {
-    --     'mfussenegger/nvim-dap',
-    --     config = function()
-    --         local dap = require('dap')
-    --         dap.configurations.lua = {
-    --             {
-    --                 name = 'Current file (local-lua-dbg, lua)',
-    --                 type = 'local-lua',
-    --                 request = 'launch',
-    --                 cwd = '${workspaceFolder}',
-    --                 program = {
-    --                     lua = 'lua5.1',
-    --                     file = '${file}',
-    --                 },
-    --                 args = {},
-    --             },
-    --         }
-    --     end,
-    -- },
-    {
-        'hrsh7th/nvim-cmp',
-        event = 'VeryLazy',
-        dependencies = {
-            'hrsh7th/cmp-nvim-lsp',
-            'hrsh7th/cmp-buffer',
-            'hrsh7th/cmp-path',
-            'hrsh7th/nvim-cmp',
-            'neovim/nvim-lspconfig',
-            'hrsh7th/vim-vsnip',
-            'hrsh7th/cmp-vsnip',
-        },
-        config = function()
-            local cmp = require('cmp')
-            cmp.setup({
-                snippet = {
-                    expand = function(args)
-                        vim.fn['vsnip#anonymous'](args.body)
-                    end,
-                },
-                window = {
-                    completion = cmp.config.window.bordered(),
-                    documentation = cmp.config.window.bordered(),
-                },
-
-                completion = { completeopt = 'menu,menuone,noinsert' },
-
-                mapping = cmp.mapping.preset.insert {
-                    ['<C-n>'] = cmp.mapping.select_next_item(),
-                    ['<C-p>'] = cmp.mapping.select_prev_item(),
-                    ['<C-Space>'] = cmp.mapping.confirm { select = true },
-                },
-                sources = cmp.config.sources({
-                    { name = 'nvim_lsp' },
-                    { name = 'path' },
-                }, {
-                    { name = 'buffer' },
-                }),
-            })
-            local capabilities = require('cmp_nvim_lsp').default_capabilities()
-            require('lspconfig')['lua_ls'].setup { capabilities = capabilities }
-        end,
-    },
-    {
-        'renerocksai/telekasten.nvim',
-        event = 'VeryLazy',
-        config = function()
-            local telekasten = require('telekasten')
-            telekasten.setup({
-                home = vim.fn.expand('~/telekasten'),
-            })
-            set_leader_mappings {
-                {
-                    keys = 'n',
-                    fn = ':Telekasten panel<CR>',
-                    desc = 'Telekasten panel',
-                },
-            }
-        end,
-    },
-    {
-        -- Org Mode
-        -- Useful shortcuts: https://nvim-orgmode.github.io/features.html
-        'nvim-orgmode/orgmode',
-        dependencies = {
-            { 'nvim-treesitter/nvim-treesitter' },
-        },
-        ft = 'org',
-        config = function()
-            -- Load treesitter grammar for org
-            local orgmode = require('orgmode')
-            -- Setup orgmode
-            orgmode.setup({
-                org_agenda_files = '~/orgfiles/**/*',
-                org_default_notes_file = '~/orgfiles/refile.org',
-            })
-            orgmode.setup_ts_grammar()
-        end,
-    },
-    {
-        'iamcco/markdown-preview.nvim',
-        ft = { 'markdown' },
-        build = function()
-            vim.fn['mkdp#util#install']()
-        end,
-    },
-}
-
-local krisajenkins = {
-    {
-        'krisajenkins/telescope-quix.nvim',
-        dev = true,
-        event = 'VeryLazy',
-        dependencies = {
-            'nvim-telescope/telescope.nvim',
-        },
-        config = function()
-            require('telescope').load_extension('telescope_quix')
-            require('telescope_quix').setup {}
-            set_leader_mappings {
-                {
-                    keys = 'qa',
-                    fn = ':Telescope telescope_quix quix_applications<CR>',
-                    desc = '[Q]uix [A]pplications',
-                },
-                {
-                    keys = 'qd',
-                    fn = ':Telescope telescope_quix quix_deployments<CR>',
-                    desc = '[Q]uix [D]eployments',
-                },
-                {
-                    keys = 'qe',
-                    fn = ':Telescope telescope_quix quix_environments<CR>',
-                    desc = '[Q]uix [E]nvironments',
-                },
-                {
-                    keys = 'ql',
-                    fn = ':Telescope telescope_quix quix_library<CR>',
-                    desc = '[Q]uix [L]ibrary',
-                },
-                {
-                    keys = 'qo',
-                    fn = ':Telescope telescope_quix quix_organisations<CR>',
-                    desc = '[Q]uix [O]rganisations',
-                },
-                {
-                    keys = 'qp',
-                    fn = ':Telescope telescope_quix quix_projects<CR>',
-                    desc = '[Q]uix [P]rojects',
-                },
-                {
-                    keys = 'qt',
-                    fn = ':Telescope telescope_quix quix_topics<CR>',
-                    desc = '[Q]uix [T]opics',
-                },
-                {
-                    keys = 'qr',
-                    fn = ':Telescope telescope_quix quix_repositories<CR>',
-                    desc = '[Q]uix [R]epositories',
-                },
-                {
-                    keys = 'qw',
-                    fn = ':Telescope telescope_quix quix_workspaces<CR>',
-                    desc = '[Q]uix [W]orkspaces',
-                },
-            }
-        end,
-    },
-    {
-        'krisajenkins/telescope-docker.nvim',
-        dev = true,
-        event = 'VeryLazy',
-        dependencies = {
-            'nvim-telescope/telescope.nvim',
-        },
-        config = function()
-            require('telescope').load_extension('telescope_docker')
-            require('telescope_docker').setup {}
-            set_leader_mappings {
-                {
-                    keys = 'kv',
-                    fn = ':Telescope telescope_docker docker_volumes<CR>',
-                    desc = 'doc[K]er [V]olumes',
-                },
-                {
-                    keys = 'kp',
-                    fn = ':Telescope telescope_docker docker_ps<CR>',
-                    desc = 'doc[K]er [P]rocesses',
-                },
-                {
-                    keys = 'ki',
-                    fn = ':Telescope telescope_docker docker_images<CR>',
-                    desc = 'doc[K]er [I]mages',
-                },
-            }
-        end,
-    },
-    {
-        'krisajenkins/telescope-kafka.nvim',
-        dev = true,
-        event = 'VeryLazy',
-        dependencies = {
-            'nvim-telescope/telescope.nvim',
-        },
-        config = function()
-            require('telescope').load_extension('telescope_kafka')
-            require('telescope_kafka').setup({
-                kcat_path = '/nix/store/f5mjzhssy0p164azn8vk4vqh1yi4xazq-kcat/bin/kcat',
-            })
-            set_leader_mappings {
-                {
-                    keys = 'kt',
-                    fn = ':Telescope telescope_kafka kafka_topics<CR>',
-                    desc = '[K]afka [T]opics',
-                },
-            }
-        end,
-    },
-}
-
---------------------------------------------------------------
--- Graduated
---------------------------------------------------------------
-local graduated = {
+return {
     {
         -- Theme
         'tomasr/molokai',
@@ -315,7 +19,18 @@ local graduated = {
         config = function()
             -- require('mini.indentscope').setup()
             -- require('mini.starter').setup()
+            require('mini.files').setup()
+            require('mini.trailspace').setup({
+                only_in_normal_buffers = true,
+            })
 
+            set_leader_mappings {
+                {
+                    keys = 'mf',
+                    fn = require('mini.files').open,
+                    desc = '[M]ini [F]iles',
+                },
+            }
             require('mini.statusline').setup()
             require('mini.notify').setup {
                 lsp_progress = {
@@ -365,11 +80,9 @@ local graduated = {
                 { keys = 'gh', fn = builtin.help_tags, desc = '[M]anual' },
                 { keys = 'gi', fn = ':edit ~/.config/nvim/init.lua<CR>', desc = '[I]nit.lua' },
                 {
-                    keys = 'gv',
-                    fn = function()
-                        builtin.find_files({ cwd = vim.fn.stdpath 'config' })
-                    end,
-                    desc = 'n[V]im config',
+                    keys = 'gp',
+                    fn = ':edit ~/.config/nvim/lua/plugins/evaluating.lua<CR>',
+                    desc = '[P]lugins.lua',
                 },
                 {
                     keys = 'ds',
@@ -377,18 +90,31 @@ local graduated = {
                     desc = '[D]ev document [S]ymbols',
                 },
                 { keys = 'dd', fn = builtin.lsp_definitions, desc = '[D]ev [D]efinitions' },
-                {
-                    keys = 's',
-                    fn = function()
-                        builtin.current_buffer_fuzzy_find(themes.get_dropdown({
-                            winblend = 10,
-                            previewer = false,
-                        }))
-                    end,
-                    desc = '[/] Fuzzily search in current buffer',
-                },
             }
         end,
+        keys = {
+            {
+                '<Leader>gv',
+                function()
+                    local builtin = require('telescope.builtin')
+                    builtin.find_files({ cwd = vim.fn.stdpath 'config' })
+                end,
+                desc = 'n[V]im config',
+            },
+            {
+                '<Leader>s',
+                function()
+                    local builtin = require('telescope.builtin')
+                    local themes = require('telescope.themes')
+
+                    builtin.current_buffer_fuzzy_find(themes.get_dropdown({
+                        winblend = 10,
+                        previewer = false,
+                    }))
+                end,
+                desc = '[/] Fuzzily search in current buffer',
+            },
+        },
     },
     { -- Undo tree.
         'debugloop/telescope-undo.nvim',
@@ -398,10 +124,10 @@ local graduated = {
         },
         config = function()
             require('telescope').load_extension('undo')
-            set_leader_mappings {
-                { keys = 'u', fn = ':Telescope undo<CR>', desc = 'Undo tree' },
-            }
         end,
+        keys = {
+            { '<Leader>u', ':Telescope undo<CR>', desc = 'Undo tree' },
+        },
     },
     { -- Project parser/watcher
         'nvim-treesitter/nvim-treesitter',
@@ -418,6 +144,7 @@ local graduated = {
                     'kdl',
                     'markdown',
                     'markdown_inline',
+                    'jsonc',
                     'org',
                     'purescript',
                     'typescript',
@@ -470,8 +197,17 @@ local graduated = {
             },
         },
     },
-    { -- dired+
-        'elihunter173/dirbuf.nvim',
+    -- { -- dired+
+    --     'elihunter173/dirbuf.nvim',
+    -- },
+    {
+        'stevearc/oil.nvim',
+        config = function()
+            local oil = require('oil')
+            oil.setup()
+            vim.keymap.set('n', '-', oil.open, { desc = 'Open parent directory' })
+        end,
+        dependencies = { 'nvim-tree/nvim-web-devicons' },
     },
     { -- Comment-out support
         'terrortylor/nvim-comment',
@@ -499,11 +235,11 @@ local graduated = {
         'https://github.com/smoka7/hop.nvim',
         config = function()
             require('hop').setup()
-            set_leader_mappings {
-                { keys = 'w', fn = ':HopWord<CR>', desc = 'Hop to [W]ord' },
-                { keys = 'c', fn = ':HopChar1<CR>', desc = 'Hop to Char' },
-            }
         end,
+        keys = {
+            { '<Leader>w', ':HopWord<CR>', desc = 'Hop to [W]ord' },
+            { '<Leader>c', ':HopChar1<CR>', desc = 'Hop to Char' },
+        },
     },
 
     'nvim-tree/nvim-web-devicons', -- Pretty fonticons.
@@ -552,7 +288,10 @@ local graduated = {
             formatters_by_ft = {
                 lua = { 'stylua' },
                 python = { 'black' },
+                yaml = { 'yamlfmt' },
                 erlang = { 'erlfmt' },
+                html = { 'prettier' },
+                markdown = { 'prettier' },
                 mojo = { 'mojofmt' },
                 javascript = { 'prettier' },
                 json = { 'jq' },
@@ -577,6 +316,10 @@ local graduated = {
                 gleam = {
                     command = 'gleam',
                     args = { 'format', '--stdin' },
+                },
+                yamlfmt = {
+                    command = 'yamlfmt',
+                    args = { '-' },
                 },
                 dhall = {
                     command = 'dhall',
@@ -639,7 +382,17 @@ local graduated = {
 
             lspconfig.hls.setup({})
             lspconfig.gleam.setup({})
-            lspconfig.pylsp.setup({})
+            lspconfig.pylsp.setup({
+                settings = {
+                    pylsp = {
+                        plugins = {
+                            rope_autoimport = {
+                                enabled = true,
+                            },
+                        },
+                    },
+                },
+            })
             lspconfig.erlangls.setup {}
             lspconfig.mojo.setup({})
             lspconfig.purescriptls.setup({
@@ -664,6 +417,7 @@ local graduated = {
     },
     {
         'folke/trouble.nvim', -- Error list.
+        dependencies = { 'nvim-tree/nvim-web-devicons' },
         config = function()
             vim.keymap.set(
                 'n',
@@ -674,25 +428,4 @@ local graduated = {
         end,
     },
     { 'folke/neodev.nvim', opts = {} },
-}
-
-local languages = {
-    {
-        'gleam-lang/gleam.vim',
-        ft = { 'gleam' },
-        config = function() end,
-    },
-    { -- Purescript Support
-        'purescript-contrib/purescript-vim',
-        ft = { 'purescript' },
-    },
-    { 'ckipp01/stylua-nvim', ft = { 'lua' } },
-    { 'bakudankun/pico-8.vim', ft = { 'pico8' } },
-}
-
-return {
-    graduated,
-    languages,
-    evaluating,
-    krisajenkins,
 }

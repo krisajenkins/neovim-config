@@ -7,6 +7,7 @@ vim.g.maplocalleader = ','
 vim.g.do_filetype_lua = 1
 
 vim.opt.diffopt = 'iwhite,filler'
+vim.opt.exrc = true
 vim.opt.signcolumn = 'yes'
 vim.opt.wrap = true
 vim.opt.number = false
@@ -80,12 +81,20 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 })
 
 vim.keymap.set('n', '<leader>tt', ':edit term://zsh<CR>', { desc = 'Open a [T]erminal' })
+vim.keymap.set('n', '<leader>v', function()
+    vim.cmd(':wall')
+    vim.cmd(':source')
+    -- require('plenary.reload').reload_module('telescope_kafka.stream_component')
+    -- require('plenary.reload').reload_module('telescope_kafka.stream')
+    -- require('telescope_kafka.stream').run()
+end, { desc = "Run the thing you're de[V]eloping" })
 
+-- vim.keymap.set('n', '<C-e>', [[:terminal<CR>]])
 vim.api.nvim_create_autocmd('TermOpen', {
     callback = function()
         function _G.set_terminal_keymaps()
             local opts = { buffer = 0 }
-            vim.keymap.set('t', '<esc>', [[<C-\><C-n>]], opts)
+            -- vim.keymap.set('t', '<C-e>', [[<C-\><C-n>]], opts)
             vim.keymap.set('t', 'jk', [[<C-\><C-n>]], opts)
             vim.keymap.set('t', '<C-h>', [[<Cmd>wincmd h<CR>]], opts)
             vim.keymap.set('t', '<C-j>', [[<Cmd>wincmd j<CR>]], opts)
@@ -98,3 +107,5 @@ vim.api.nvim_create_autocmd('TermOpen', {
         vim.cmd('startinsert!')
     end,
 })
+
+
