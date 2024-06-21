@@ -7,15 +7,16 @@
 ------------------------------------------------------------
 
 return {
-    {
-        'tigion/nvim-asciidoc-preview',
-        cmd = { 'AsciiDocPreview' },
-        ft = { 'asciidoc' },
-        build = 'cd server && npm install',
-        opts = {
-            -- Add user configuration here
-        },
-    },
+    -- { 'tidalcycles/vim-tidal' },
+    -- {
+    --     'jim-fx/sudoku.nvim',
+    --     cmd = 'Sudoku',
+    --     config = function()
+    --         require('sudoku').setup({
+    --             -- configuration ...
+    --         })
+    --     end,
+    -- },
     { 'shaunsingh/nord.nvim' },
     {
         -- Floating terminal window(s)
@@ -162,95 +163,40 @@ return {
             end, { desc = '[D]ebug [L]aunch' })
         end,
     },
-    { 'jbyuki/one-small-step-for-vimkind', dependencies = { 'mfussenegger/nvim-dap' } },
-    {
-        'hrsh7th/nvim-cmp',
-        event = 'VeryLazy',
-        dependencies = {
-            'hrsh7th/cmp-nvim-lsp',
-            'hrsh7th/cmp-buffer',
-            'hrsh7th/cmp-path',
-            'hrsh7th/nvim-cmp',
-            'neovim/nvim-lspconfig',
-            'hrsh7th/vim-vsnip',
-            'hrsh7th/cmp-vsnip',
-        },
-        config = function()
-            local cmp = require('cmp')
-            cmp.setup({
-                snippet = {
-                    expand = function(args)
-                        vim.fn['vsnip#anonymous'](args.body)
-                    end,
-                },
-                view = {
-                    entries = { name = 'custom', selection_order = 'near_cursor' },
-                },
-                window = {
-                    completion = cmp.config.window.bordered(),
-                    documentation = cmp.config.window.bordered(),
-                },
-
-                completion = { completeopt = 'menu,menuone,noinsert' },
-
-                mapping = cmp.mapping.preset.insert {
-                    ['<C-n>'] = cmp.mapping.select_next_item(),
-                    ['<C-p>'] = cmp.mapping.select_prev_item(),
-                    ['<C-Space>'] = cmp.mapping.confirm { select = true },
-                },
-                sources = cmp.config.sources({
-                    { name = 'nvim_lsp' },
-                    { name = 'path' },
-                }, {
-                    { name = 'buffer' },
-                }),
-            })
-            local capabilities = require('cmp_nvim_lsp').default_capabilities()
-            require('lspconfig')['lua_ls'].setup { capabilities = capabilities }
-            require('lspconfig')['pylsp'].setup { capabilities = capabilities }
-        end,
-    },
-    {
-        'renerocksai/telekasten.nvim',
-        event = 'VeryLazy',
-        config = function()
-            local telekasten = require('telekasten')
-            telekasten.setup({
-                home = vim.fn.expand('~/telekasten'),
-            })
-        end,
-        keys = {
-            {
-                '<Leader>n',
-                ':Telekasten panel<CR>',
-                desc = 'Telekasten panel',
-            },
-        },
-    },
-    {
-        -- Org Mode
-        -- Useful shortcuts: https://nvim-orgmode.github.io/features.html
-        'nvim-orgmode/orgmode',
-        dependencies = {
-            { 'nvim-treesitter/nvim-treesitter' },
-        },
-        ft = 'org',
-        config = function()
-            -- Load treesitter grammar for org
-            local orgmode = require('orgmode')
-            -- Setup orgmode
-            orgmode.setup({
-                org_agenda_files = '~/orgfiles/**/*',
-                org_default_notes_file = '~/orgfiles/refile.org',
-            })
-            orgmode.setup_ts_grammar()
-        end,
-    },
-    {
-        'iamcco/markdown-preview.nvim',
-        ft = { 'markdown' },
-        build = function()
-            vim.fn['mkdp#util#install']()
-        end,
-    },
+    -- {
+    --     'renerocksai/telekasten.nvim',
+    --     event = 'VeryLazy',
+    --     config = function()
+    --         local telekasten = require('telekasten')
+    --         telekasten.setup({
+    --             home = vim.fn.expand('~/telekasten'),
+    --         })
+    --     end,
+    --     keys = {
+    --         {
+    --             '<Leader>n',
+    --             ':Telekasten panel<CR>',
+    --             desc = 'Telekasten panel',
+    --         },
+    --     },
+    -- },
+    -- {
+    --     -- Org Mode
+    --     -- Useful shortcuts: https://nvim-orgmode.github.io/features.html
+    --     'nvim-orgmode/orgmode',
+    --     dependencies = {
+    --         { 'nvim-treesitter/nvim-treesitter' },
+    --     },
+    --     ft = 'org',
+    --     config = function()
+    --         -- Load treesitter grammar for org
+    --         local orgmode = require('orgmode')
+    --         -- Setup orgmode
+    --         orgmode.setup({
+    --             org_agenda_files = '~/orgfiles/**/*',
+    --             org_default_notes_file = '~/orgfiles/refile.org',
+    --         })
+    --         orgmode.setup_ts_grammar()
+    --     end,
+    -- },
 }

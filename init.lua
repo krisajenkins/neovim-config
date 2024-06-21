@@ -62,10 +62,12 @@ require('lazy').setup('plugins', {
 
 -- Colorscheme
 vim.cmd('colorscheme molokai')
+-- vim.cmd('colorscheme gruvbox')
 
 -- Diagnostics.
 vim.keymap.set('n', '©p', vim.diagnostic.goto_prev)
 vim.keymap.set('n', '©n', vim.diagnostic.goto_next)
+vim.keymap.set({ 'i', 'n' }, '<Leader>m', ':write<CR>:make<CR>', { desc = '[M]ake' })
 vim.keymap.set('n', '<Leader>lp', ':Lazy profile<CR>', { desc = '[L]azy [P]rofile' })
 
 -- Syntax highlighting customisation.
@@ -107,5 +109,3 @@ vim.api.nvim_create_autocmd('TermOpen', {
         vim.cmd('startinsert!')
     end,
 })
-
-

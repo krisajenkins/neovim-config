@@ -5,7 +5,7 @@ return {
         -- Theme
         'tomasr/molokai',
     },
-
+    { 'ellisonleao/gruvbox.nvim' },
     {
         'grapp-dev/nui-components.nvim',
         dependencies = {
@@ -19,18 +19,15 @@ return {
         config = function()
             -- require('mini.indentscope').setup()
             -- require('mini.starter').setup()
-            require('mini.files').setup()
+
+            -- local files = require('mini.files')
+            -- files.setup()
+            -- vim.keymap.set('n', '-', files.open, { desc = 'Open File Nav' })
+
             require('mini.trailspace').setup({
                 only_in_normal_buffers = true,
             })
 
-            set_leader_mappings {
-                {
-                    keys = 'mf',
-                    fn = require('mini.files').open,
-                    desc = '[M]ini [F]iles',
-                },
-            }
             require('mini.statusline').setup()
             require('mini.notify').setup {
                 lsp_progress = {
@@ -71,13 +68,13 @@ return {
 
             set_leader_mappings {
                 { keys = 'gf', fn = builtin.find_files, desc = '[F]ile finder' },
-                { keys = 'gm', fn = builtin.marks, desc = '[F]ile finder' },
+                { keys = 'gm', fn = builtin.marks, desc = '[M]arks' },
                 { keys = 'gg', fn = builtin.live_grep, desc = 'Live [G]rep' },
                 { keys = 'gb', fn = builtin.buffers, desc = '[B]uffer finder' },
                 { keys = 'gk', fn = builtin.keymaps, desc = '[B]uffer finder' },
                 { keys = 'ga', fn = builtin.resume, desc = 'Go [A]gain (resume previous search)' },
                 { keys = 'go', fn = builtin.oldfiles, desc = '[O]ld files' },
-                { keys = 'gh', fn = builtin.help_tags, desc = '[M]anual' },
+                { keys = 'gh', fn = builtin.help_tags, desc = '[H]elp (manual)' },
                 { keys = 'gi', fn = ':edit ~/.config/nvim/init.lua<CR>', desc = '[I]nit.lua' },
                 {
                     keys = 'gp',
@@ -116,19 +113,25 @@ return {
             },
         },
     },
-    { -- Undo tree.
-        'debugloop/telescope-undo.nvim',
-        event = 'VeryLazy',
-        dependencies = {
-            'nvim-telescope/telescope.nvim',
-        },
-        config = function()
-            require('telescope').load_extension('undo')
-        end,
+    {
+        'mbbill/undotree',
         keys = {
-            { '<Leader>u', ':Telescope undo<CR>', desc = 'Undo tree' },
+            { '<Leader>u', ':UndotreeToggle<CR>', desc = 'Undo tree' },
         },
     },
+    -- { -- Undo tree.
+    --     'debugloop/telescope-undo.nvim',
+    --     event = 'VeryLazy',
+    --     dependencies = {
+    --         'nvim-telescope/telescope.nvim',
+    --     },
+    --     config = function()
+    --         require('telescope').load_extension('undo')
+    --     end,
+    --     keys = {
+    --         { '<Leader>u', ':Telescope undo<CR>', desc = 'Undo tree' },
+    --     },
+    -- },
     { -- Project parser/watcher
         'nvim-treesitter/nvim-treesitter',
         build = ':TSUpdate',
@@ -197,18 +200,18 @@ return {
             },
         },
     },
-    -- { -- dired+
-    --     'elihunter173/dirbuf.nvim',
-    -- },
-    {
-        'stevearc/oil.nvim',
-        config = function()
-            local oil = require('oil')
-            oil.setup()
-            vim.keymap.set('n', '-', oil.open, { desc = 'Open parent directory' })
-        end,
-        dependencies = { 'nvim-tree/nvim-web-devicons' },
+    { -- dired+
+        'elihunter173/dirbuf.nvim',
     },
+    -- {
+    --     'stevearc/oil.nvim',
+    --     config = function()
+    --         local oil = require('oil')
+    --         oil.setup()
+    --         vim.keymap.set('n', '-', oil.open, { desc = 'Open parent directory' })
+    --     end,
+    --     dependencies = { 'nvim-tree/nvim-web-devicons' },
+    -- },
     { -- Comment-out support
         'terrortylor/nvim-comment',
         config = function()
@@ -260,6 +263,7 @@ return {
 
     { -- Magit
         'NeogitOrg/neogit',
+        version = 'v0.0.1', -- Remove/update this when we udpate to Neovim 0.10.x.
         dependencies = {
             'nvim-lua/plenary.nvim',
             'sindrets/diffview.nvim',
@@ -286,20 +290,23 @@ return {
         'stevearc/conform.nvim',
         opts = {
             formatters_by_ft = {
-                lua = { 'stylua' },
-                python = { 'black' },
-                yaml = { 'yamlfmt' },
+                css = { 'prettier' },
+                dhall = { 'dhall' },
                 erlang = { 'erlfmt' },
+                gleam = { 'gleam' },
                 html = { 'prettier' },
-                markdown = { 'prettier' },
-                mojo = { 'mojofmt' },
                 javascript = { 'prettier' },
                 json = { 'jq' },
-                typescript = { 'prettier' },
-                purescript = { 'purty' },
+                lua = { 'stylua' },
+                markdown = { 'prettier' },
+                mojo = { 'mojofmt' },
                 nix = { 'nixpkgs-fmt' },
-                dhall = { 'dhall' },
-                gleam = { 'gleam' },
+                purescript = { 'purty' },
+                python = { 'black' },
+                rust = { 'rustfmt' },
+                typescript = { 'prettier' },
+                yaml = { 'yamlfmt' },
+                zig = { 'zig' },
             },
             formatters = {
                 purty = {
@@ -308,6 +315,14 @@ return {
                 },
                 ['nixpkgs-fmt'] = {
                     command = 'nixpkgs-fmt',
+                },
+                jq = {
+                    command = 'jq',
+                    args = { '.' },
+                },
+                rustfmt = {
+                    command = 'rustfmt',
+                    args = {},
                 },
                 erlfmt = {
                     command = 'erlfmt',
@@ -328,6 +343,10 @@ return {
                 mojofmt = {
                     command = 'mojo',
                     args = { 'format', '-' },
+                },
+                zig = {
+                    command = 'zig',
+                    args = { 'fmt', '--stdin' },
                 },
             },
         },
@@ -381,18 +400,39 @@ return {
             })
 
             lspconfig.hls.setup({})
+            lspconfig.zls.setup({})
             lspconfig.gleam.setup({})
-            lspconfig.pylsp.setup({
+
+            -- NOTE: You may need to call `rustup component add rust-analyzer` for this to work.
+            lspconfig.rust_analyzer.setup {
                 settings = {
-                    pylsp = {
-                        plugins = {
-                            rope_autoimport = {
-                                enabled = true,
-                            },
+                    ['rust-analyzer'] = {
+                        diagnostics = {
+                            enable = false,
                         },
                     },
                 },
-            })
+            }
+
+            lspconfig.pylsp.setup({})
+            -- lspconfig.jedi_language_server.setup({
+            --     init_options = {
+            --         jedi_settings = {
+            --             auto_import_modules = { 'quixstreams' },
+            --         },
+            --         jedi = {
+            --             settings = {
+            --                 auto_import_modules = { 'quixstreams' },
+            --             },
+            --         },
+            --         settings = {
+            --             auto_import_modules = { 'quixstreams' },
+            --         },
+            --         jediSettings = {
+            --             autoImportModules = { 'quixstreams' },
+            --         },
+            --     },
+            -- })
             lspconfig.erlangls.setup {}
             lspconfig.mojo.setup({})
             lspconfig.purescriptls.setup({
@@ -416,16 +456,127 @@ return {
         end,
     },
     {
+        'hrsh7th/nvim-cmp',
+        event = 'VeryLazy',
+        dependencies = {
+            'hrsh7th/cmp-nvim-lsp',
+            'hrsh7th/cmp-buffer',
+            'hrsh7th/cmp-path',
+            'hrsh7th/nvim-cmp',
+            'neovim/nvim-lspconfig',
+            'hrsh7th/vim-vsnip',
+            'hrsh7th/cmp-vsnip',
+        },
+        config = function()
+            local cmp = require('cmp')
+            cmp.setup({
+                snippet = {
+                    expand = function(args)
+                        vim.fn['vsnip#anonymous'](args.body)
+                    end,
+                },
+                view = {
+                    entries = { name = 'custom', selection_order = 'near_cursor' },
+                },
+                window = {
+                    completion = cmp.config.window.bordered(),
+                    documentation = cmp.config.window.bordered(),
+                },
+
+                completion = { completeopt = 'menu,menuone,noinsert' },
+
+                mapping = cmp.mapping.preset.insert {
+                    ['<C-n>'] = cmp.mapping.select_next_item(),
+                    ['<C-p>'] = cmp.mapping.select_prev_item(),
+                    ['<C-Space>'] = cmp.mapping.confirm { select = true },
+                },
+                sources = cmp.config.sources({
+                    { name = 'nvim_lsp' },
+                    { name = 'vsnip' },
+                    { name = 'path' },
+                }, {
+                    { name = 'buffer' },
+                }),
+            })
+            local capabilities = require('cmp_nvim_lsp').default_capabilities()
+            local lspconfig = require('lspconfig')
+            lspconfig['lua_ls'].setup({ capabilities = capabilities })
+            lspconfig['pylsp'].setup({
+                capabilities = capabilities,
+                settings = {
+                    pylsp = {
+                        plugins = {
+                            pycodestyle = {
+                                enabled = false,
+                                ignore = { 'W292', 'F401', 'W391', 'E302', 'F401' },
+                            },
+                            -- rope_autoimport = {
+                            --     enabled = true,
+                            --     memory = true,
+                            -- },
+                            -- rope_completion = { enabled = true },
+                            -- jedi_definition = {
+                            --     enabled = true,
+                            -- },
+                            -- jedi_completion = {
+                            --     enabled = true,
+                            --     include_function_objects = true,
+                            --     include_class_objects = true,
+                            --     fuzzy = true,
+                            --     eager = true,
+                            --     cache_for = { 'quixstreams' },
+                            -- },
+                            -- preload = {
+                            --     enabled = true,
+                            --     modules = { 'quixstreams' },
+                            -- },
+                            -- jedi = {
+                            --     enabled = true,
+                            --     auto_import_modules = { 'quixstreams' },
+                            -- },
+                            -- rope_completion = { enabled = true, eager = true },
+                            -- jedi = {
+                            --     enabled = true,
+                            --     auto_import_modules = { 'quixstreams' },
+                            -- },
+                            flake8 = { enabled = false },
+                            -- pyflakes = { enabled = true },
+                            -- pylint = {
+                            --     enabled = true,
+                            -- },
+                        },
+                    },
+                },
+            })
+        end,
+    },
+    {
+        'iamcco/markdown-preview.nvim',
+        ft = { 'markdown' },
+        build = function()
+            vim.fn['mkdp#util#install']()
+        end,
+    },
+    {
+        'tigion/nvim-asciidoc-preview',
+        cmd = { 'AsciiDocPreview' },
+        ft = { 'asciidoc' },
+        build = 'cd server && npm install',
+        opts = {
+            -- Add user configuration here
+        },
+    },
+    {
         'folke/trouble.nvim', -- Error list.
         dependencies = { 'nvim-tree/nvim-web-devicons' },
-        config = function()
-            vim.keymap.set(
-                'n',
-                '<Leader>ge',
-                ':TroubleToggle<CR>',
-                { desc = '[E]rrors', noremap = true }
-            )
-        end,
+        opts = {},
+        keys = {
+            {
+                '<leader>ge',
+                '<cmd>Trouble diagnostics toggle focus=false<cr>',
+                desc = 'Diagnostics (Trouble)',
+            },
+        },
     },
     { 'folke/neodev.nvim', opts = {} },
 }
