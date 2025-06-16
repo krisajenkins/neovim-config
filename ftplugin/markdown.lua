@@ -8,3 +8,5 @@ hl_store['@markup.italic.markdown_inline'] = { link = 'Keyword' }
 for group, hl in pairs(hl_store) do
     vim.api.nvim_set_hl(0, group, hl)
 end
+
+vim.cmd('setlocal spell spelllang=en_gb')

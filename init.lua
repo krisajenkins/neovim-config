@@ -67,11 +67,12 @@ vim.cmd('colorscheme molokai')
 -- Diagnostics.
 vim.keymap.set('n', '©p', vim.diagnostic.goto_prev)
 vim.keymap.set('n', '©n', vim.diagnostic.goto_next)
-vim.keymap.set({ 'i', 'n' }, '<Leader>m', ':write<CR>:make<CR>', { desc = '[M]ake' })
+vim.keymap.set('n', '<Leader>m', ':write<CR>:make<CR>', { desc = '[M]ake' })
 vim.keymap.set('n', '<Leader>lp', ':Lazy profile<CR>', { desc = '[L]azy [P]rofile' })
 
 -- Syntax highlighting customisation.
 vim.api.nvim_set_hl(0, 'Comment', { link = 'String' })
+vim.api.nvim_set_hl(0, 'IncSearch', { link = 'CurSearch' })
 vim.api.nvim_set_hl(0, '@org.keyword.todo', { link = 'PreProc' })
 
 vim.api.nvim_create_autocmd('TextYankPost', {

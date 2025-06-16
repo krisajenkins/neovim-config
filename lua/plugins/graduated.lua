@@ -1,10 +1,8 @@
 local set_leader_mappings = require('utils').set_leader_mappings
 
 return {
-    {
-        -- Theme
-        'tomasr/molokai',
-    },
+    -- Themes
+    { 'tomasr/molokai' },
     { 'ellisonleao/gruvbox.nvim' },
     {
         'grapp-dev/nui-components.nvim',
@@ -18,22 +16,31 @@ return {
         event = 'VeryLazy',
         config = function()
             -- require('mini.indentscope').setup()
-            -- require('mini.starter').setup()
-
-            -- local files = require('mini.files')
-            -- files.setup()
-            -- vim.keymap.set('n', '-', files.open, { desc = 'Open File Nav' })
+            require('mini.ai').setup()
+            require('mini.starter').setup()
+            require('mini.bracketed').setup()
+            local MiniJump2d = require('mini.jump2d')
+            local single_character = MiniJump2d.builtin_opts.single_character
+            MiniJump2d.setup({
+                view = { dim = true },
+                spotter = single_character.spotter,
+                hooks = { after_jump = single_character.hooks.after_jump },
+                mappings = { start_jumping = '' },
+                silent = true,
+            })
+            vim.keymap.set('n', '<Leader>w', function()
+                MiniJump2d.start(MiniJump2d.builtin_opts.single_character)
+            end, { desc = 'Jump to Char' })
 
             require('mini.trailspace').setup({
                 only_in_normal_buffers = true,
             })
 
             require('mini.statusline').setup()
-            require('mini.notify').setup {
-                lsp_progress = {
-                    duration_last = 2000,
-                },
-            }
+
+            require('mini.notify').setup()
+
+            require('mini.align').setup()
         end,
     },
     { -- Everything browser
@@ -61,7 +68,6 @@ return {
             }
 
             local builtin = require('telescope.builtin')
-            local themes = require('telescope.themes')
 
             pcall(telescope.load_extension, 'fzf')
             pcall(telescope.load_extension, 'ui-select')
@@ -139,6 +145,7 @@ return {
             local configs = require('nvim-treesitter.configs')
 
             configs.setup({
+                modules = {},
                 ensure_installed = {
                     'gleam',
                     'html',
@@ -149,6 +156,8 @@ return {
                     'markdown_inline',
                     'jsonc',
                     'org',
+                    'toml',
+                    'unison',
                     'purescript',
                     'typescript',
                     'vim',
@@ -164,28 +173,6 @@ return {
     },
     { -- Case-intelligent search & replace.
         'tpope/vim-abolish',
-    },
-    { -- Bookmarking important files.
-        'tomasky/bookmarks.nvim',
-        event = 'VeryLazy',
-        config = function()
-            local telescope = require('telescope')
-            telescope.load_extension('bookmarks')
-            local bookmarks = require('bookmarks')
-            bookmarks.setup({
-                keywords = {
-                    ['@t'] = '☑️ ', -- mark annotation startswith @t ,signs this icon as `Todo`
-                    ['@w'] = '⚠️ ', -- mark annotation startswith @w ,signs this icon as `Warn`
-                    ['@n'] = '📓', -- mark annotation startswith @n ,signs this icon as `Note`
-                },
-            })
-
-            set_leader_mappings {
-                { keys = 'ta', fn = bookmarks.bookmark_toggle, desc = 'Bookmark [A]dd/remove' },
-                { keys = 'tc', fn = bookmarks.bookmark_ann, desc = 'Bookmark [C]lassify' },
-                { keys = 'tl', fn = telescope.extensions.bookmarks.list, desc = 'Bookmark [L]ist' },
-            }
-        end,
     },
     { -- Git Status hints in the left of the buffer
         'lewis6991/gitsigns.nvim',
@@ -224,46 +211,66 @@ return {
         config = function()
             local which = require('which-key')
             which.setup()
-            which.register({
-                ['<leader>g'] = { name = '[G]o to', _ = 'which_key_ignore' },
-                ['<leader>k'] = { name = '[K]afka & doc[K]er', _ = 'which_key_ignore' },
-                ['<leader>l'] = { name = '[L]azy', _ = 'which_key_ignore' },
-                ['<leader>x'] = { name = 'e[X]ecutor', _ = 'which_key_ignore' },
-                ['<leader>d'] = { name = '[D]ev', _ = 'which_key_ignore' },
-                ['<leader>t'] = { name = '[T]ags & Bookmarks', _ = 'which_key_ignore' },
+            which.add({
+                { '<leader>g', group = '[G]o to' },
+                { '<leader>k', group = '[K]afka & doc[K]er' },
+                { '<leader>l', group = '[L]azy' },
+                { '<leader>x', group = 'e[X]ecutor' },
+                { '<leader>d', group = '[D]ev' },
+                { '<leader>t', group = '[T]ags & Bookmarks' },
             })
+            -- which.register({
+            --     ['<leader>g'] = { name = '[G]o to', _ = 'which_key_ignore' },
+            --     ['<leader>k'] = { name = '[K]afka & doc[K]er', _ = 'which_key_ignore' },
+            --     ['<leader>l'] = { name = '[L]azy', _ = 'which_key_ignore' },
+            --     ['<leader>x'] = { name = 'e[X]ecutor', _ = 'which_key_ignore' },
+            --     ['<leader>d'] = { name = '[D]ev', _ = 'which_key_ignore' },
+            --     ['<leader>t'] = { name = '[T]ags & Bookmarks', _ = 'which_key_ignore' },
+            -- })
         end,
     },
-    {
-        'https://github.com/smoka7/hop.nvim',
-        config = function()
-            require('hop').setup()
-        end,
-        keys = {
-            { '<Leader>w', ':HopWord<CR>', desc = 'Hop to [W]ord' },
-            { '<Leader>c', ':HopChar1<CR>', desc = 'Hop to Char' },
-        },
-    },
+    -- {
+    --     'https://github.com/smoka7/hop.nvim',
+    --     config = function()
+    --         require('hop').setup()
+    --     end,
+    --     keys = {
+    --         { '<Leader>w', ':HopWord<CR>', desc = 'Hop to [W]ord' },
+    --         { '<Leader>c', ':HopChar1<CR>', desc = 'Hop to Char' },
+    --     },
+    -- },
 
     'nvim-tree/nvim-web-devicons', -- Pretty fonticons.
     'MunifTanjim/nui.nvim',
-    {
-        'nvim-neo-tree/neo-tree.nvim', -- Filetree browser
-        event = 'VeryLazy',
-        config = function()
-            require('neo-tree').setup()
-            vim.keymap.set(
-                'n',
-                '<Leader>gt',
-                ':Neotree toggle<CR>',
-                { desc = 'File tree', noremap = true }
-            )
-        end,
-    },
+    -- {
+    --     'nvim-neo-tree/neo-tree.nvim', -- Filetree browser
+    --     event = 'VeryLazy',
+    --     config = function()
+    --         require('neo-tree').setup()
+    --         vim.keymap.set(
+    --             'n',
+    --             '<Leader>gt',
+    --             ':Neotree toggle<CR>',
+    --             { desc = 'File tree', noremap = true }
+    --         )
+    --         require('neo-tree').setup({
+    --             window = {
+    --                 mappings = {
+    --                     ['P'] = {
+    --                         'toggle_preview',
+    --                         config = { use_float = false, use_image_nvim = true },
+    --                     },
+    --                     ['l'] = 'focus_preview',
+    --                     ['<C-b>'] = { 'scroll_preview', config = { direction = 10 } },
+    --                     ['<C-f>'] = { 'scroll_preview', config = { direction = -10 } },
+    --                 },
+    --             },
+    --         })
+    --     end,
+    -- },
 
     { -- Magit
         'NeogitOrg/neogit',
-        version = 'v0.0.1', -- Remove/update this when we udpate to Neovim 0.10.x.
         dependencies = {
             'nvim-lua/plenary.nvim',
             'sindrets/diffview.nvim',
@@ -286,70 +293,90 @@ return {
         opts = {},
     },
 
-    { -- Code formatters.
+    { -- Code formatter.
         'stevearc/conform.nvim',
-        opts = {
-            formatters_by_ft = {
-                css = { 'prettier' },
-                dhall = { 'dhall' },
-                erlang = { 'erlfmt' },
-                gleam = { 'gleam' },
-                html = { 'prettier' },
-                javascript = { 'prettier' },
-                json = { 'jq' },
-                lua = { 'stylua' },
-                markdown = { 'prettier' },
-                mojo = { 'mojofmt' },
-                nix = { 'nixpkgs-fmt' },
-                purescript = { 'purty' },
-                python = { 'black' },
-                rust = { 'rustfmt' },
-                typescript = { 'prettier' },
-                yaml = { 'yamlfmt' },
-                zig = { 'zig' },
-            },
-            formatters = {
-                purty = {
-                    command = 'purty',
-                    args = { '-' },
+        config = function()
+            local conform = require('conform')
+            conform.setup({
+                formatters_by_ft = {
+                    c = { 'clang-format' },
+                    css = { 'prettier' },
+                    dhall = { 'dhall' },
+                    erlang = { 'erlfmt' },
+                    gleam = { 'gleam' },
+                    elm = { 'elm_format' },
+                    html = { 'prettier' },
+                    javascript = { 'prettier' },
+                    json = { 'jq' },
+                    lua = { 'stylua' },
+                    markdown = { 'mdformat' },
+                    mojo = { 'mojofmt' },
+                    kotlin = { 'ktfmt' },
+                    kdl = { 'kdlfmt' },
+                    nix = { 'nixpkgsfmt' },
+                    purescript = { 'purs_tidy' },
+                    python = { 'ruff_organize_imports', 'ruff_format' },
+                    rescript = { 'rescript-format' },
+                    rust = { 'rustfmt' },
+                    typescript = { 'prettier' },
+                    typescriptreact = { 'prettier' },
+                    toml = { 'prettier' },
+                    yaml = { 'yamlfmt' },
+                    zig = { 'zig' },
                 },
-                ['nixpkgs-fmt'] = {
-                    command = 'nixpkgs-fmt',
+                formatters = {
+                    purty = {
+                        command = 'purty',
+                        args = { '-' },
+                    },
+                    purs_tidy = {
+                        command = 'purs-tidy',
+                        args = { 'format' },
+                    },
+                    mdformat = {
+                        command = 'mdformat',
+                        args = { '-' },
+                    },
+                    nixpkgsfmt = {
+                        command = 'nixpkgs-fmt',
+                    },
+                    jq = {
+                        command = 'jq',
+                        args = { '.' },
+                    },
+                    rustfmt = {
+                        command = 'rustfmt',
+                        args = { '--edition', '2021' },
+                    },
+                    erlfmt = {
+                        command = 'erlfmt',
+                        args = { '-' },
+                    },
+                    gleam = {
+                        command = 'gleam',
+                        args = { 'format', '--stdin' },
+                    },
+                    yamlfmt = {
+                        command = 'yamlfmt',
+                        args = { '-' },
+                    },
+                    dhall = {
+                        command = 'dhall',
+                        args = { 'format' },
+                    },
+                    mojofmt = {
+                        command = 'mojo',
+                        args = { 'format', '-' },
+                    },
+                    zig = {
+                        command = 'zig',
+                        args = { 'fmt', '--stdin' },
+                    },
                 },
-                jq = {
-                    command = 'jq',
-                    args = { '.' },
-                },
-                rustfmt = {
-                    command = 'rustfmt',
-                    args = {},
-                },
-                erlfmt = {
-                    command = 'erlfmt',
-                    args = { '-' },
-                },
-                gleam = {
-                    command = 'gleam',
-                    args = { 'format', '--stdin' },
-                },
-                yamlfmt = {
-                    command = 'yamlfmt',
-                    args = { '-' },
-                },
-                dhall = {
-                    command = 'dhall',
-                    args = { 'format' },
-                },
-                mojofmt = {
-                    command = 'mojo',
-                    args = { 'format', '-' },
-                },
-                zig = {
-                    command = 'zig',
-                    args = { 'fmt', '--stdin' },
-                },
-            },
-        },
+            })
+
+            vim.keymap.set('n', 'Œ', conform.format, { desc = 'Reformat buffer' })
+        end,
     },
     { -- Popular LSP configurations
         'neovim/nvim-lspconfig',
@@ -357,7 +384,7 @@ return {
         config = function()
             -- See `:help lspconfig-all` for the list of available language servers.
             local lspconfig = require('lspconfig')
-            vim.lsp.set_log_level('info')
+            vim.lsp.set_log_level('off')
 
             lspconfig.lua_ls.setup({
                 on_init = function(client)
@@ -400,39 +427,47 @@ return {
             })
 
             lspconfig.hls.setup({})
+            lspconfig.clangd.setup({})
             lspconfig.zls.setup({})
             lspconfig.gleam.setup({})
+            lspconfig.arduino_language_server.setup({})
+
+            local configs = require('lspconfig.configs')
+
+            if not configs.toit then
+                configs.toit = {
+                    default_config = {
+                        cmd = { 'jag', 'toit', 'lsp' },
+                        root_dir = lspconfig.util.root_pattern('.git'),
+                        filetypes = { 'toit' },
+                    },
+                }
+            end
+            lspconfig.toit.setup({})
 
             -- NOTE: You may need to call `rustup component add rust-analyzer` for this to work.
-            lspconfig.rust_analyzer.setup {
-                settings = {
-                    ['rust-analyzer'] = {
-                        diagnostics = {
-                            enable = false,
-                        },
-                    },
-                },
-            }
+            -- "/Users/krisjenkins/.rustup/toolchains/stable-aarch64-apple-darwin/bin/rust-analyzer",
+            lspconfig.rust_analyzer.setup({
+                -- cmd = {
+                --     '/Users/krisjenkins/.rustup/toolchains/esp/bin/rust-analyzer',
+                -- },
+                -- settings = {
+                --     ['rust-analyzer'] = {
+                --         server = { extraEnv = { RUSTUP_TOOLCHAIN = 'stable' } },
+                --         cargo = {
+                --             extraEnv = {
+                --                 ['RUSTUP_TOOLCHAIN'] = 'stable',
+                --             },
+                --         },
+                --         diagnostics = {
+                --             enable = false,
+                --         },
+                --     },
+                -- },
+            })
 
-            lspconfig.pylsp.setup({})
-            -- lspconfig.jedi_language_server.setup({
-            --     init_options = {
-            --         jedi_settings = {
-            --             auto_import_modules = { 'quixstreams' },
-            --         },
-            --         jedi = {
-            --             settings = {
-            --                 auto_import_modules = { 'quixstreams' },
-            --             },
-            --         },
-            --         settings = {
-            --             auto_import_modules = { 'quixstreams' },
-            --         },
-            --         jediSettings = {
-            --             autoImportModules = { 'quixstreams' },
-            --         },
-            --     },
-            -- })
+            -- lspconfig.pylsp.setup({})
+
             lspconfig.erlangls.setup {}
             lspconfig.mojo.setup({})
             lspconfig.purescriptls.setup({
@@ -445,19 +480,20 @@ return {
                 },
             })
 
-            lspconfig.tsserver.setup({})
+            lspconfig.ts_ls.setup({})
 
-            vim.keymap.set('n', 'K', vim.lsp.buf.hover, { desc = 'Show symbol info' })
+            vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
+                vim.lsp.handlers.hover,
+                { title = 'Docs', border = 'rounded', max_width = 100 }
+            )
+
+            -- vim.keymap.set('n', 'K', vim.lsp.buf.hover, { desc = 'Show symbol info' })
             vim.keymap.set('n', 'gi', vim.lsp.buf.implementation)
             vim.keymap.set({ 'n', 'v' }, '<C-c><C-k>', vim.lsp.buf.code_action)
-            vim.keymap.set('n', 'Œ', function()
-                require('conform').format()
-            end, { desc = 'Reformat buffer' })
         end,
     },
     {
         'hrsh7th/nvim-cmp',
-        event = 'VeryLazy',
         dependencies = {
             'hrsh7th/cmp-nvim-lsp',
             'hrsh7th/cmp-buffer',
@@ -500,53 +536,8 @@ return {
             })
             local capabilities = require('cmp_nvim_lsp').default_capabilities()
             local lspconfig = require('lspconfig')
-            lspconfig['lua_ls'].setup({ capabilities = capabilities })
-            lspconfig['pylsp'].setup({
+            lspconfig.pylsp.setup({
                 capabilities = capabilities,
-                settings = {
-                    pylsp = {
-                        plugins = {
-                            pycodestyle = {
-                                enabled = false,
-                                ignore = { 'W292', 'F401', 'W391', 'E302', 'F401' },
-                            },
-                            -- rope_autoimport = {
-                            --     enabled = true,
-                            --     memory = true,
-                            -- },
-                            -- rope_completion = { enabled = true },
-                            -- jedi_definition = {
-                            --     enabled = true,
-                            -- },
-                            -- jedi_completion = {
-                            --     enabled = true,
-                            --     include_function_objects = true,
-                            --     include_class_objects = true,
-                            --     fuzzy = true,
-                            --     eager = true,
-                            --     cache_for = { 'quixstreams' },
-                            -- },
-                            -- preload = {
-                            --     enabled = true,
-                            --     modules = { 'quixstreams' },
-                            -- },
-                            -- jedi = {
-                            --     enabled = true,
-                            --     auto_import_modules = { 'quixstreams' },
-                            -- },
-                            -- rope_completion = { enabled = true, eager = true },
-                            -- jedi = {
-                            --     enabled = true,
-                            --     auto_import_modules = { 'quixstreams' },
-                            -- },
-                            flake8 = { enabled = false },
-                            -- pyflakes = { enabled = true },
-                            -- pylint = {
-                            --     enabled = true,
-                            -- },
-                        },
-                    },
-                },
             })
         end,
     },
@@ -569,14 +560,48 @@ return {
     {
         'folke/trouble.nvim', -- Error list.
         dependencies = { 'nvim-tree/nvim-web-devicons' },
-        opts = {},
+        config = function()
+            local trouble = require('trouble')
+            trouble.setup({
+                focus = false,
+                modes = {
+                    diagnostics = {
+                        auto_close = true,
+                    },
+                },
+                -- win = {
+                --     type = 'float',
+                --     border = 'rounded',
+                --     size = { width = 0.38, height = 0.234 }, -- This is all based around Phi.
+                --     position = { -5, -5 },
+                -- },
+            })
+        end,
         keys = {
             {
-                '<leader>ge',
-                '<cmd>Trouble diagnostics toggle focus=false<cr>',
+                '<Leader>ge',
+                '<cmd>Trouble diagnostics toggle<cr>',
                 desc = 'Diagnostics (Trouble)',
             },
         },
     },
     { 'folke/neodev.nvim', opts = {} },
+    {
+        -- Floating terminal window(s)
+        -- If this gets removed, consider keeping the keyboard bindings!
+        'voldikss/vim-floaterm',
+        config = function()
+            vim.g.floaterm_width = 0.9
+            vim.g.floaterm_height = 0.9
+            vim.g.floaterm_title = 'Terminal'
+            vim.keymap.set('n', '<leader>f', ':FloatermNew fzf<CR>')
+            vim.keymap.set({ 'n' }, '<C-e>', ':FloatermToggle<CR>', { desc = 'Floatterm Toggle' })
+            vim.keymap.set(
+                't',
+                '<C-e>',
+                '<C-\\><C-n>:FloatermToggle<CR>',
+                { desc = 'Floatterm Toggle' }
+            )
+        end,
+    },
 }

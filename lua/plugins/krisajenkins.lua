@@ -8,10 +8,15 @@ return {
         event = 'VeryLazy',
         dependencies = {
             'nvim-telescope/telescope.nvim',
+            'folke/which-key.nvim',
         },
         config = function()
             require('telescope').load_extension('telescope_quix')
             require('telescope_quix').setup {}
+            local which = require('which-key')
+            which.add({
+                { '<leader>q', group = '[Q]uix' },
+            })
         end,
         keys = {
             {
