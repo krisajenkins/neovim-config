@@ -1,6 +1,5 @@
-------------------------------------------------------------
--- Stuff I've written.
-------------------------------------------------------------
+-- Personal plugins developed by krisajenkins
+
 return {
     {
         'krisajenkins/telescope-quix.nvim',
@@ -66,6 +65,7 @@ return {
             },
         },
     },
+
     {
         'krisajenkins/telescope-docker.nvim',
         dev = true,
@@ -95,6 +95,7 @@ return {
             },
         },
     },
+
     {
         'krisajenkins/telescope-kafka.nvim',
         dev = true,
