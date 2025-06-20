@@ -1,6 +1,8 @@
 return {
     { -- Magit
-        'NeogitOrg/neogit',
+        'krisajenkins/neogit',
+        dir = '/Users/krisjenkins/Work/ThirdParty/neogit',
+        dev = true,
         dependencies = {
             'nvim-lua/plenary.nvim',
             'sindrets/diffview.nvim',
