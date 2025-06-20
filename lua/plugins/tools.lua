@@ -59,13 +59,6 @@ return {
         },
     },
 
-    -- {
-    --     'simnalamburt/vim-mundo',
-    --     keys = {
-    --         { '<Leader>u', ':MundoToggle<CR>', desc = 'Undo tree' },
-    --     },
-    -- },
-
     {
         'mfussenegger/nvim-dap',
         config = function()
@@ -94,15 +87,6 @@ return {
             vim.keymap.set('n', '<Leader>dc', dap.continue, { desc = '[D]ebug [C]ontinue' })
             vim.keymap.set('n', '<Leader>do', dap.step_over, { desc = '[D]ebug step [O]ver' })
             vim.keymap.set('n', '<Leader>di', dap.step_into, { desc = '[D]ebug step [I]nto' })
-            -- local widgets = require('dap.ui.widgets')
-            -- vim.keymap.set('n', '<Leader>dh', function()
-            --     local my_sidebar = widgets.sidebar(widgets.scopes)
-            --     my_sidebar.open()
-            -- end, { desc = '[D]ebug [H]over' })
-            -- vim.keymap.set('n', '<Leader>dl', function()
-            --     local osv = require('osv')
-            --     osv.run_this()
-            -- end, { desc = '[D]ebug [L]aunch' })
         end,
     },
 
@@ -185,5 +169,13 @@ return {
             -- your configuration here
             -- or leave empty to use defaults
         },
+    },
+
+    {
+        -- Rich markdown rendering with inline visual enhancements
+        'MeanderingProgrammer/render-markdown.nvim',
+        dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' },
+        ft = 'markdown',
+        opts = {},
     },
 }
