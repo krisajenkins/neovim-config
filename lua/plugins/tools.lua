@@ -16,6 +16,12 @@ return {
                 ':Neogit cwd=%:p:h<CR>',
                 { desc = 'Git [S]tatus', noremap = true }
             )
+            vim.keymap.set(
+                'n',
+                '<C-l>',
+                ':Neogit cwd=%:p:h<CR>',
+                { desc = 'Git [S]tatus', noremap = true }
+            )
         end,
     },
 
