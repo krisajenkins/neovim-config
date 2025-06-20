@@ -74,23 +74,20 @@ return {
     {
         'folke/trouble.nvim', -- Error list.
         dependencies = { 'nvim-tree/nvim-web-devicons' },
-        config = function()
-            local trouble = require('trouble')
-            trouble.setup({
-                focus = false,
-                modes = {
-                    diagnostics = {
-                        auto_close = true,
-                    },
+        opts = {
+            focus = false,
+            modes = {
+                diagnostics = {
+                    auto_close = true,
                 },
-                -- win = {
-                --     type = 'float',
-                --     border = 'rounded',
-                --     size = { width = 0.38, height = 0.234 }, -- This is all based around Phi.
-                --     position = { -5, -5 },
-                -- },
-            })
-        end,
+            },
+            -- win = {
+            --     type = 'float',
+            --     border = 'rounded',
+            --     size = { width = 0.38, height = 0.234 }, -- This is all based around Phi.
+            --     position = { -5, -5 },
+            -- },
+        },
         keys = {
             {
                 '<Leader>ge',
@@ -127,3 +124,4 @@ return {
     --     },
     -- },
 }
+
