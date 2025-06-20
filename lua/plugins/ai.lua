@@ -5,18 +5,25 @@ local OLLAMA_MODEL = 'qwen2.5-coder:32b'
 
 return {
     {
-        'greggh/claude-code.nvim',
+        'krisajenkins/claude-code.nvim',
+        branch = 'floating-window',
+        -- Dev-mode settings.
+        -- dir = '/Users/krisjenkins/Work/ThirdParty/claude-code.nvim',
+        -- dev = true,
         dependencies = {
             'nvim-lua/plenary.nvim', -- Required for git operations
         },
-        config = function()
-            require('claude-code').setup({
-                window = {
-                    split_ratio = 0.8,
-                    position = 'vsplit',
+        opts = {
+            window = {
+                split_ratio = 0.8,
+                position = 'float',
+                float = {
+                    width = 0.9,
+                    height = 0.9,
+                    relative = 'win',
                 },
-            })
-        end,
+            },
+        },
     },
 
     {
@@ -105,3 +112,4 @@ return {
     -- zbirenbaum/copilot.lua, sourcegraph/sg.nvim, TobinPalmer/rayso.nvim
     -- aduros/ai.vim, robitx/gp.nvim, David-Kunz/gen.nvim
 }
+
