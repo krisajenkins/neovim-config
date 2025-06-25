@@ -32,7 +32,6 @@ return {
 
             set_leader_mappings {
                 { keys = 'gf', fn = builtin.find_files, desc = '[F]ile finder' },
-                { keys = 'gm', fn = builtin.marks, desc = '[M]arks' },
                 { keys = 'gg', fn = builtin.live_grep, desc = 'Live [G]rep' },
                 { keys = 'gb', fn = builtin.buffers, desc = '[B]uffer finder' },
                 { keys = 'gk', fn = builtin.keymaps, desc = '[B]uffer finder' },
@@ -116,4 +115,17 @@ return {
         'elihunter173/dirbuf.nvim',
     },
 
+    {
+        'stevearc/aerial.nvim',
+        opts = {},
+        -- Optional dependencies
+        dependencies = {
+            'nvim-treesitter/nvim-treesitter',
+            'nvim-tree/nvim-web-devicons',
+        },
+        keys = {
+            { '<Leader>gm', '<cmd>AerialToggle!<CR>', desc = 'Toggle Aerial' },
+            { '<Leader>gn', '<cmd>AerialNavToggle<CR>', desc = 'Toggle Aerial Nav' },
+        },
+    },
 }
