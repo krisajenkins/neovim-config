@@ -69,22 +69,6 @@ return {
             -- NOTE: You may need to call `rustup component add rust-analyzer` for this to work.
             -- "/Users/krisjenkins/.rustup/toolchains/stable-aarch64-apple-darwin/bin/rust-analyzer",
             lspconfig.rust_analyzer.setup({
-                -- cmd = {
-                --     '/Users/krisjenkins/.rustup/toolchains/esp/bin/rust-analyzer',
-                -- },
-                -- settings = {
-                --     ['rust-analyzer'] = {
-                --         server = { extraEnv = { RUSTUP_TOOLCHAIN = 'stable' } },
-                --         cargo = {
-                --             extraEnv = {
-                --                 ['RUSTUP_TOOLCHAIN'] = 'stable',
-                --             },
-                --         },
-                --         diagnostics = {
-                --             enable = false,
-                --         },
-                --     },
-                -- },
             })
 
             -- lspconfig.pylsp.setup({})
