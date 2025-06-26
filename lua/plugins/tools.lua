@@ -186,7 +186,7 @@ return {
         },
         config = function(_, opts)
             require('render-markdown').setup(opts)
-            
+
             -- Disable render-markdown for files that checkmate handles
             vim.api.nvim_create_autocmd('BufEnter', {
                 pattern = { 'TODO', 'todo', 'TODO.md', 'todo.md', '*.todo', '*.todo.md' },
