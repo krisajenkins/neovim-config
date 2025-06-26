@@ -63,7 +63,7 @@ return {
         'mfussenegger/nvim-dap',
         config = function()
             local dap = require('dap')
-            dap.set_log_level('TRACE')
+            -- dap.set_log_level('TRACE')
             dap.adapters.python = {
                 type = 'executable',
                 command = 'python',
@@ -86,6 +86,7 @@ return {
             vim.keymap.set('n', '<Leader>dr', dap.repl.toggle, { desc = '[D]ebug [R]epl' })
             vim.keymap.set('n', '<Leader>dc', dap.continue, { desc = '[D]ebug [C]ontinue' })
             vim.keymap.set('n', '<Leader>do', dap.step_over, { desc = '[D]ebug step [O]ver' })
+            vim.keymap.set('n', '<Leader>du', dap.step_out, { desc = '[D]ebug step o[U]t' })
             vim.keymap.set('n', '<Leader>di', dap.step_into, { desc = '[D]ebug step [I]nto' })
         end,
     },
