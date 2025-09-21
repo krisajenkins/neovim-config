@@ -50,6 +50,7 @@ return {
             lspconfig.hls.setup({})
             lspconfig.clangd.setup({})
             lspconfig.zls.setup({})
+            lspconfig.nil_ls.setup({})
 
             lspconfig.jdtls.setup({
                 cmd = {
