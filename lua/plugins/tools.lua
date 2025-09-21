@@ -169,6 +169,13 @@ return {
         opts = {
             -- your configuration here
             -- or leave empty to use defaults
+            files = {
+                'todo',
+                'TODO',
+                'todo.md',
+                'TODO.md',
+                'TODO*.md',
+            },
         },
     },
 }
