@@ -68,8 +68,7 @@ return {
 
             -- NOTE: You may need to call `rustup component add rust-analyzer` for this to work.
             -- "/Users/krisjenkins/.rustup/toolchains/stable-aarch64-apple-darwin/bin/rust-analyzer",
-            lspconfig.rust_analyzer.setup({
-            })
+            lspconfig.rust_analyzer.setup({})
 
             -- lspconfig.pylsp.setup({})
 
