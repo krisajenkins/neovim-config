@@ -171,29 +171,4 @@ return {
             -- or leave empty to use defaults
         },
     },
-
-    {
-        -- Rich markdown rendering with inline visual enhancements
-        'MeanderingProgrammer/render-markdown.nvim',
-        dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' },
-        ft = 'markdown',
-        opts = {
-            file_types = { 'markdown' },
-            exclude = {
-                buftypes = {},
-                filetypes = {},
-            },
-        },
-        config = function(_, opts)
-            require('render-markdown').setup(opts)
-
-            -- Disable render-markdown for files that checkmate handles
-            vim.api.nvim_create_autocmd('BufEnter', {
-                pattern = { 'TODO', 'todo', 'TODO.md', 'todo.md', '*.todo', '*.todo.md' },
-                callback = function()
-                    vim.b.render_markdown_enabled = false
-                end,
-            })
-        end,
-    },
 }
