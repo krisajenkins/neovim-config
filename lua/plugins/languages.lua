@@ -28,11 +28,6 @@ return {
             ignore_install = {},
         },
     },
-    {
-        'gleam-lang/gleam.vim',
-        ft = { 'gleam' },
-        opts = {},
-    },
 
     { -- Purescript Support
         'purescript-contrib/purescript-vim',
