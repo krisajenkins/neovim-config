@@ -50,6 +50,39 @@ return {
             lspconfig.hls.setup({})
             lspconfig.clangd.setup({})
             lspconfig.zls.setup({})
+
+            lspconfig.jdtls.setup({
+                cmd = {
+                    'nix',
+                    'develop',
+                    '--command',
+                    'jdtls',
+                },
+
+                init_options = {
+                    settings = {
+                        java = {
+                            imports = {
+                                gradle = {
+                                    enabled = true,
+                                    wrapper = {
+                                        enabled = true,
+                                        -- Note the nested table here. This is really important.
+                                        -- `checksums` is an array of objects, which in lua translates to a table of tables.
+                                        checksums = {
+                                            {
+                                                sha256 = '7d3a4ac4de1c32b59bc6a4eb8ecb8e612ccd0cf1ae1e99f66902da64df296172',
+                                                allowed = true,
+                                            },
+                                        },
+                                    },
+                                },
+                            },
+                        },
+                    },
+                },
+            })
+
             lspconfig.gleam.setup({})
             lspconfig.arduino_language_server.setup({})
 
