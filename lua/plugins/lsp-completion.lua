@@ -127,6 +127,37 @@ return {
 
             -- vim.keymap.set('n', 'K', vim.lsp.buf.hover, { desc = 'Show symbol info' })
             vim.keymap.set('n', 'gi', vim.lsp.buf.implementation)
+            vim.keymap.set(
+                'n',
+                '<Leader>lt',
+                vim.lsp.buf.typehierarchy,
+                { desc = '[L]sp [T]ype hierarchy' }
+            )
+            vim.keymap.set(
+                'n',
+                '<Leader>lm',
+                vim.lsp.buf.implementation,
+                { desc = '[L]sp i[M]plementation' }
+            )
+            vim.keymap.set(
+                'n',
+                '<Leader>li',
+                vim.lsp.buf.incoming_calls,
+                { desc = '[L]sp [I]ncoming calls' }
+            )
+            vim.keymap.set(
+                'n',
+                '<Leader>lo',
+                vim.lsp.buf.outgoing_calls,
+                { desc = '[L]sp [O]utgoing calls' }
+            )
+            vim.keymap.set(
+                'n',
+                '<Leader>lr',
+                vim.lsp.buf.references,
+                { desc = '[L]sp [R]eferences' }
+            )
+            vim.keymap.set('n', '<Leader>lR', vim.lsp.buf.rename, { desc = '[L]sp [R]ENAME' })
             vim.keymap.set({ 'n', 'v' }, '<C-c><C-k>', vim.lsp.buf.code_action)
         end,
     },
