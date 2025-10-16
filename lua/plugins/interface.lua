@@ -60,14 +60,6 @@ return {
                 { '<leader>d', group = '[D]ev' },
                 { '<leader>t', group = '[T]ags & Bookmarks' },
             })
-            -- which.register({
-            --     ['<leader>g'] = { name = '[G]o to', _ = 'which_key_ignore' },
-            --     ['<leader>k'] = { name = '[K]afka & doc[K]er', _ = 'which_key_ignore' },
-            --     ['<leader>l'] = { name = '[L]azy', _ = 'which_key_ignore' },
-            --     ['<leader>x'] = { name = 'e[X]ecutor', _ = 'which_key_ignore' },
-            --     ['<leader>d'] = { name = '[D]ev', _ = 'which_key_ignore' },
-            --     ['<leader>t'] = { name = '[T]ags & Bookmarks', _ = 'which_key_ignore' },
-            -- })
         end,
     },
 
@@ -81,12 +73,6 @@ return {
                     auto_close = true,
                 },
             },
-            -- win = {
-            --     type = 'float',
-            --     border = 'rounded',
-            --     size = { width = 0.38, height = 0.234 }, -- This is all based around Phi.
-            --     position = { -5, -5 },
-            -- },
         },
         keys = {
             {
@@ -114,14 +100,4 @@ return {
             vim.opt.foldenable = true
         end,
     },
-
-    -- {
-    --     'Bekaboo/dropbar.nvim',
-    --     event = 'VeryLazy',
-    --     dependencies = {
-    --         'nvim-telescope/telescope-fzf-native.nvim',
-    --         build = 'make',
-    --     },
-    -- },
 }
-
