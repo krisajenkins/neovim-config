@@ -110,3 +110,21 @@ vim.api.nvim_create_autocmd('TermOpen', {
         vim.cmd('startinsert!')
     end,
 })
+
+vim.lsp.enable({
+    'lua_ls',
+    'hls',
+    'clangd',
+    'zls',
+    'nil_ls',
+    'jdtls',
+    'gleam',
+    'arduino_language_server',
+    'toit',
+    'rust_analyzer',
+    'erlangls',
+    'mojo',
+    'purescriptls',
+    'ts_ls',
+    'pylsp',
+})
