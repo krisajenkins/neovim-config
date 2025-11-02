@@ -58,7 +58,6 @@ return {
                 { '<leader>l', group = '[L]azy' },
                 { '<leader>x', group = 'e[X]ecutor' },
                 { '<leader>d', group = '[D]ev' },
-                { '<leader>t', group = '[T]ags & Bookmarks' },
             })
         end,
     },
