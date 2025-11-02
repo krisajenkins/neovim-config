@@ -14,17 +14,12 @@ We use Jujutsu v0.35 for version control. All commands begin with `jj`.
 
 ### Plugin Development
 
-For plugins in the `dev/` directory (telescope-kafka.nvim, telescope-docker.nvim, telescope-quix.nvim):
-
 ```bash
-# Run tests for a specific plugin
-cd dev/telescope-kafka.nvim && make test
-cd dev/telescope-docker.nvim && make test
-cd dev/telescope-quix.nvim && make test
-
 # Format Lua code
 stylua lua/
 ```
+
+Development plugins live in `~/Work/Tools/nvim/` and are loaded with `dev = true` in lazy.nvim specs.
 
 ### Build Commands
 
@@ -35,17 +30,23 @@ stylua lua/
 
 ### Plugin Organization
 
-Plugins are organized by type under `lua/plugins/`:
+Lazy.nvim plugins are organized by type under `lua/plugins/`:
 
-1. **lsp-completion.lua**: LSP servers, completion, and snippets
-2. **navigation.lua**: Telescope, file explorers, search tools
-3. **editing.lua**: Text manipulation, formatting, commenting
-4. **interface.lua**: Themes, UI components, statusline, folding
-5. **tools.lua**: Git, debugging, terminals, development tools
-6. **languages.lua**: Language-specific support and treesitter
-7. **ai.lua**: AI/LLM integrations (Claude, Ollama)
-8. **experimental.lua**: Plugins being evaluated
-9. **personal.lua**: Personal plugin development (all marked with `dev = true`)
+1. **completion.lua**: Completion engine (blink.cmp) and snippets
+2. **editing.lua**: Text manipulation, formatting (conform.nvim), commenting, surround
+3. **interface.lua**: Themes, mini.nvim modules (icons, clue, files, statusline, notify), trouble.nvim, folding (ufo)
+4. **languages.lua**: Treesitter and language-specific plugins
+5. **navigation.lua**: Telescope, file explorers (dirbuf), code outline (aerial)
+6. **terminals.lua**: Terminal management (toggleterm) with AI agent shortcuts
+7. **tools.lua**: Git (neogit, gitsigns), debugging (DAP), database (dadbod), previews, executor
+8. **personal.lua**: Personal plugin development (all marked with `dev = true`)
+
+Custom config scripts are auto-sourced from `plugin/`:
+
+1. **lsp.lua**: LSP server list (`vim.lsp.enable()`) and `LspAttach` keymaps
+2. **terminal.lua**: Terminal keymaps and `TermOpen` autocmd
+3. **vecgrep.lua**: `:Vecgrep` semantic search command
+4. **yank.lua**: `TextYankPost` highlight autocmd
 
 ### Plugin Loading
 
@@ -55,11 +56,12 @@ Plugins are organized by type under `lua/plugins/`:
 
 ### LSP Configuration
 
-Configured servers are defined in `graduated.lua` with `lspconfig`. Key servers:
+LSP servers are configured using the native `vim.lsp.enable()` API in `plugin/lsp.lua`. Server configs live in `lsp/` directory. Key servers:
 
 - Lua (lua_ls), Rust (rust_analyzer), TypeScript (ts_ls)
-- Haskell (hls), Python (pyright), Gleam (gleam)
-- Custom Toit server at `~/src/sdk/toit/build/toitlsp`
+- Haskell (hls), Python (pylsp), Gleam (gleam)
+- Zig (zls), Nix (nil_ls), Erlang (erlangls)
+- Custom Toit server, Mojo, PureScript (purescriptls)
 
 ### Key Mappings
 
@@ -72,14 +74,13 @@ Configured servers are defined in `graduated.lua` with `lspconfig`. Key servers:
 
 ### Active Development Projects
 
-Three Telescope extensions are under active development:
+Personal plugins under active development (in `personal.lua` with `dev = true`):
 
-1. **telescope-kafka.nvim**: Kafka topic/consumer group browsing
-2. **telescope-docker.nvim**: Docker container/image management
-3. **telescope-quix.nvim**: Quix platform integration
+1. **oversight-nvim**: Process oversight plugin
+2. **NeoJJ**: Jujutsu integration for Neovim
 
-Each uses:
+Development plugins are loaded from `~/Work/Tools/nvim/` (configured in `lua/config/lazy.lua`).
 
-- mini.test for testing
-- Makefile for test automation
-- Standard Telescope extension structure
+# Finding Plugins
+
+https://github.com/rockerBOO/awesome-neovim is a good place to look for new plugins.
