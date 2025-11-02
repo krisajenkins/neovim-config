@@ -116,12 +116,12 @@ return {
         end,
     },
 
-    {
-        'https://codeberg.org/esensar/nvim-dev-container',
-        event = 'VeryLazy',
-        dependencies = { 'nvim-treesitter/nvim-treesitter' },
-        opts = {},
-    },
+    -- {
+    --     'https://codeberg.org/esensar/nvim-dev-container',
+    --     event = 'VeryLazy',
+    --     dependencies = { 'nvim-treesitter/nvim-treesitter' },
+    --     opts = {},
+    -- },
 
     {
         'iamcco/markdown-preview.nvim',
