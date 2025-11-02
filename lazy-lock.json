@@ -119,6 +119,10 @@
     "branch": "main",
     "commit": "82348352e6568fcc0385bd7c99a8ead3a479feea"
   },
+  "render-markdown.nvim": {
+    "branch": "main",
+    "commit": "07d088bf8bdadd159eb807b90eaee86a4778383f"
+  },
   "stylua-nvim": {
     "branch": "main",
     "commit": "ce59a353f02938cba3e0285e662fcd3901cd270f"
