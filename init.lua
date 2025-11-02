@@ -24,8 +24,8 @@ vim.opt.smartcase = true
 vim.opt.termguicolors = true
 vim.opt.mouse = 'a'
 vim.opt.conceallevel = 0
-vim.opt.grepprg = "rg --vimgrep --smart-case"
-vim.opt.grepformat = "%f:%l:%c:%m"
+vim.opt.grepprg = 'rg --vimgrep --smart-case'
+vim.opt.grepformat = '%f:%l:%c:%m'
 
 vim.opt.breakindent = true
 vim.opt.hlsearch = true
@@ -104,6 +104,7 @@ vim.api.nvim_create_autocmd('TermOpen', {
 
 -- LSP servers are configured using the new vim.lsp.enable() API
 vim.lsp.enable({
+    'allium_lsp',
     'lua_ls',
     'hls',
     'clangd',

@@ -3,6 +3,18 @@ return {
         'nvim-treesitter/nvim-treesitter',
         build = ':TSUpdate',
         config = function(plugin)
+            -- Register custom Allium treesitter parser
+            local parser_config = require('nvim-treesitter.parsers').get_parser_configs()
+            parser_config.allium = {
+                install_info = {
+                    url = 'https://github.com/juxt/allium-tools',
+                    files = { 'src/parser.c' },
+                    location = 'packages/tree-sitter-allium',
+                    branch = 'main',
+                },
+                filetype = 'allium',
+            }
+
             require('nvim-treesitter.configs').setup({
                 modules = {},
                 ensure_installed = {
