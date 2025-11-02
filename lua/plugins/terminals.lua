@@ -71,6 +71,18 @@ return {
                 gemini_term:toggle()
             end, { desc = 'Toggle Gemini' })
 
+            -- OpenCode agent
+            local opencode_term = Terminal:new({
+                cmd = 'opencode',
+                count = 4,
+                display_name = ' OpenCode ',
+                direction = 'float',
+            })
+
+            vim.keymap.set({ 'n', 't' }, '<leader>ao', function()
+                opencode_term:toggle()
+            end, { desc = 'Toggle OpenCode' })
+
             -- Even shorter keymap for my current preferred agent.
             vim.keymap.set({ 'n', 't' }, '<C-,>', function()
                 claude_term:toggle()
