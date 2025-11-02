@@ -10,7 +10,6 @@ return {
                     'html',
                     'javascript',
                     'lua',
-                    'gleam',
                     'kdl',
                     'markdown',
                     'markdown_inline',
