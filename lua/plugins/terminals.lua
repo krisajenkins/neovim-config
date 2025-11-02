@@ -46,10 +46,8 @@ return {
                 '<Cmd>1ToggleTerm<CR>',
                 { desc = 'Toggle Shell Terminal' }
             )
-            -- Or terminal 1: Main shell (bottom third, VSCode-style)
-            --vim.keymap.set({ "n", "t" }, "<C-e>", "<Cmd>1ToggleTerm direction=horizontal size=33%<CR>", { desc = "Toggle Shell Terminal" })
 
-            -- Terminal 2: Claude agent
+            -- Claude agent
             local claude_term = Terminal:new({
                 cmd = 'claude',
                 count = 2,
@@ -61,7 +59,7 @@ return {
                 claude_term:toggle()
             end, { desc = 'Toggle Claude' })
 
-            -- Terminal 3: Gemini agent
+            -- Gemini agent
             local gemini_term = Terminal:new({
                 cmd = 'gemini',
                 count = 3,
