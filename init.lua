@@ -24,6 +24,8 @@ vim.opt.smartcase = true
 vim.opt.termguicolors = true
 vim.opt.mouse = 'a'
 vim.opt.conceallevel = 0
+vim.opt.grepprg = "rg --vimgrep --smart-case"
+vim.opt.grepformat = "%f:%l:%c:%m"
 
 vim.opt.breakindent = true
 vim.opt.hlsearch = true
@@ -61,6 +63,14 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     group = vim.api.nvim_create_augroup('highlight-yank', { clear = true }),
     callback = function()
         vim.highlight.on_yank()
+    end,
+})
+
+vim.api.nvim_create_autocmd('QuickFixCmdPost', {
+    desc = 'Open quickfix window if there are results.',
+    pattern = '[^l]*',
+    callback = function()
+        vim.cmd.cwindow()
     end,
 })
 
