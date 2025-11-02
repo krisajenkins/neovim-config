@@ -14,6 +14,7 @@ return {
                 'markdown_inline',
                 'jsonc',
                 'org',
+                'sql',
                 'toml',
                 'unison',
                 'purescript',
