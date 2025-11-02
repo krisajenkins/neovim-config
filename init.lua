@@ -6,7 +6,7 @@ vim.g.mapleader = ','
 vim.g.maplocalleader = ','
 vim.g.do_filetype_lua = 1
 
-vim.opt.diffopt = 'iwhite,filler'
+vim.opt.diffopt = 'iwhite,filler,context:20,algorithm:histogram'
 vim.opt.exrc = true
 vim.opt.signcolumn = 'yes'
 vim.opt.wrap = true
