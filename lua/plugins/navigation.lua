@@ -45,36 +45,29 @@ return {
                     desc = '[P]lugins directory',
                 },
                 {
+                    keys = 'gv',
+                    fn = function()
+                        builtin.find_files({ cwd = vim.fn.stdpath 'config' })
+                    end,
+                    desc = 'n[V]im config',
+                },
+                {
                     keys = 'ds',
                     fn = builtin.lsp_document_symbols,
                     desc = '[D]ev document [S]ymbols',
                 },
                 { keys = 'dd', fn = builtin.lsp_definitions, desc = '[D]ev [D]efinitions' },
             }
-        end,
-        keys = {
-            {
-                '<Leader>gv',
-                function()
-                    local builtin = require('telescope.builtin')
-                    builtin.find_files({ cwd = vim.fn.stdpath 'config' })
-                end,
-                desc = 'n[V]im config',
-            },
-            {
-                '<Leader>s',
-                function()
-                    local builtin = require('telescope.builtin')
-                    local themes = require('telescope.themes')
 
-                    builtin.current_buffer_fuzzy_find(themes.get_dropdown({
-                        winblend = 10,
-                        previewer = false,
-                    }))
-                end,
-                desc = '[/] Fuzzily search in current buffer',
-            },
-        },
+            -- Fuzzy search in current buffer
+            vim.keymap.set('n', '<Leader>s', function()
+                local themes = require('telescope.themes')
+                builtin.current_buffer_fuzzy_find(themes.get_dropdown({
+                    winblend = 10,
+                    previewer = false,
+                }))
+            end, { desc = '[/] Fuzzily search in current buffer' })
+        end,
     },
 
     'nvim-telescope/telescope-ui-select.nvim',
