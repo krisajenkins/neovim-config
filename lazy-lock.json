@@ -1,7 +1,7 @@
 {
   "aerial.nvim": {
     "branch": "master",
-    "commit": "8bb8697d180681746da41bef5c8691d04443af36"
+    "commit": "da0ceef62eb58b9bec1975017beb2f28c3b1e72c"
   },
   "blink.cmp": {
     "branch": "main",
@@ -17,7 +17,7 @@
   },
   "conform.nvim": {
     "branch": "master",
-    "commit": "9b8fa5e0b78168f68bee9bf886dc20f287c61e02"
+    "commit": "8314f4c9e205e7f30b62147069729f9a1227d8bf"
   },
   "diffview.nvim": {
     "branch": "main",
@@ -41,11 +41,11 @@
   },
   "gitsigns.nvim": {
     "branch": "main",
-    "commit": "5813e4878748805f1518cee7abb50fd7205a3a48"
+    "commit": "6bd29494e3f79ff08be1d35bc1926ed23c22ed9a"
   },
   "ide-tools": {
     "branch": "master",
-    "commit": "aeade6e02601db29b56dc707dedea002acba8cc8"
+    "commit": "7ca11f4b4035c03c73828ee27d213cdd197bc3c5"
   },
   "lazy.nvim": {
     "branch": "main",
@@ -57,7 +57,7 @@
   },
   "mini.nvim": {
     "branch": "main",
-    "commit": "94cae4660a8b2d95dbbd56e1fbc6fcfa2716d152"
+    "commit": "a995fe9cd4193fb492b5df69175a351a74b3d36b"
   },
   "molokai": {
     "branch": "master",
@@ -77,7 +77,7 @@
   },
   "nvim-dap": {
     "branch": "master",
-    "commit": "5860c7c501eb428d3137ee22c522828d20cca0b3"
+    "commit": "03e83f1513264ca694ff35433f361fe993fcb83c"
   },
   "nvim-dap-ui": {
     "branch": "master",
@@ -121,7 +121,7 @@
   },
   "render-markdown.nvim": {
     "branch": "main",
-    "commit": "07d088bf8bdadd159eb807b90eaee86a4778383f"
+    "commit": "da6a7b25471ab23824f3429225973186eb0b62d2"
   },
   "stylua-nvim": {
     "branch": "main",
@@ -149,7 +149,7 @@
   },
   "undotree": {
     "branch": "master",
-    "commit": "0f1c9816975b5d7f87d5003a19c53c6fd2ff6f7f"
+    "commit": "178d19e00a643f825ea11d581b1684745d0c4eda"
   },
   "vim-abolish": {
     "branch": "master",
