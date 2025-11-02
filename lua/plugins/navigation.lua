@@ -106,6 +106,9 @@ return {
 
     { -- dired+
         'elihunter173/dirbuf.nvim',
+        keys = {
+            { '-', '<Plug>(dirbuf_up)', desc = 'Open parent directory' },
+        },
     },
 
     {

@@ -63,46 +63,46 @@ return {
                 },
             })
 
-            local minifiles = require('mini.files')
-            minifiles.setup({
-                windows = {
-                    preview = false,
-                    width_preview = 60,
-                },
-            })
-            vim.keymap.set('n', '-', function()
-                minifiles.open(vim.api.nvim_buf_get_name(0))
-            end, { desc = 'MiniFiles Open' })
-
-            -- Custom mappings for mini.files
-            vim.api.nvim_create_autocmd('User', {
-                pattern = 'MiniFilesBufferCreate',
-                callback = function(args)
-                    local buf_id = args.data.buf_id
-                    -- Override 'l' to close mini.files when opening a file
-                    vim.keymap.set('n', 'l', function()
-                        local entry = minifiles.get_fs_entry()
-                        if entry then
-                            if entry.fs_type == 'file' then
-                                minifiles.close()
-                                vim.cmd('edit ' .. vim.fn.fnameescape(entry.path))
-                            else
-                                -- For directories, use the default behavior (navigate into)
-                                minifiles.go_in()
-                            end
-                        end
-                    end, { buffer = buf_id, desc = 'Open file (and close)' })
-
-                    -- 'L' opens file in split
-                    vim.keymap.set('n', 'L', function()
-                        local entry = minifiles.get_fs_entry()
-                        if entry and entry.fs_type == 'file' then
-                            minifiles.close()
-                            vim.cmd('vsplit ' .. vim.fn.fnameescape(entry.path))
-                        end
-                    end, { buffer = buf_id, desc = 'Open in split' })
-                end,
-            })
+            -- local minifiles = require('mini.files')
+            -- minifiles.setup({
+            --     windows = {
+            --         preview = false,
+            --         width_preview = 60,
+            --     },
+            -- })
+            -- vim.keymap.set('n', '-', function()
+            --     minifiles.open(vim.api.nvim_buf_get_name(0))
+            -- end, { desc = 'MiniFiles Open' })
+            --
+            -- -- Custom mappings for mini.files
+            -- vim.api.nvim_create_autocmd('User', {
+            --     pattern = 'MiniFilesBufferCreate',
+            --     callback = function(args)
+            --         local buf_id = args.data.buf_id
+            --         -- Override 'l' to close mini.files when opening a file
+            --         vim.keymap.set('n', 'l', function()
+            --             local entry = minifiles.get_fs_entry()
+            --             if entry then
+            --                 if entry.fs_type == 'file' then
+            --                     minifiles.close()
+            --                     vim.cmd('edit ' .. vim.fn.fnameescape(entry.path))
+            --                 else
+            --                     -- For directories, use the default behavior (navigate into)
+            --                     minifiles.go_in()
+            --                 end
+            --             end
+            --         end, { buffer = buf_id, desc = 'Open file (and close)' })
+            --
+            --         -- 'L' opens file in split
+            --         vim.keymap.set('n', 'L', function()
+            --             local entry = minifiles.get_fs_entry()
+            --             if entry and entry.fs_type == 'file' then
+            --                 minifiles.close()
+            --                 vim.cmd('vsplit ' .. vim.fn.fnameescape(entry.path))
+            --             end
+            --         end, { buffer = buf_id, desc = 'Open in split' })
+            --     end,
+            -- })
 
             require('mini.bracketed').setup()
             local MiniJump2d = require('mini.jump2d')
