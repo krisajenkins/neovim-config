@@ -7,7 +7,8 @@ return {
         config = function()
             -- require('mini.indentscope').setup()
             require('mini.ai').setup()
-            require('mini.starter').setup()
+            -- require('mini.starter').setup()
+
             -- mini.icons setup - provides nvim-web-devicons compatibility
             local miniicons = require('mini.icons')
             miniicons.setup({
