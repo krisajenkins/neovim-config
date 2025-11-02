@@ -34,25 +34,6 @@ return {
     },
 
     {
-        -- Floating terminal window(s)
-        -- If this gets removed, consider keeping the keyboard bindings!
-        'voldikss/vim-floaterm',
-        config = function()
-            vim.g.floaterm_width = 0.9
-            vim.g.floaterm_height = 0.9
-            vim.g.floaterm_title = 'Terminal'
-            vim.keymap.set('n', '<leader>f', ':FloatermNew fzf<CR>')
-            vim.keymap.set({ 'n' }, '<C-e>', ':FloatermToggle<CR>', { desc = 'Floatterm Toggle' })
-            vim.keymap.set(
-                't',
-                '<C-e>',
-                '<C-\\><C-n>:FloatermToggle<CR>',
-                { desc = 'Floatterm Toggle' }
-            )
-        end,
-    },
-
-    {
         'mbbill/undotree',
         keys = {
             { '<Leader>u', ':UndotreeToggle<CR>', desc = 'Undo tree' },
@@ -115,8 +96,6 @@ return {
         event = 'VeryLazy',
         config = function() end,
     },
-
-    { 'akinsho/toggleterm.nvim', version = '*', config = true },
 
     {
         'google/executor.nvim',
