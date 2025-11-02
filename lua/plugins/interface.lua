@@ -1,8 +1,5 @@
 return {
     { 'tomasr/molokai' },
-    { 'ellisonleao/gruvbox.nvim' },
-
-    'MunifTanjim/nui.nvim',
 
     {
         'echasnovski/mini.nvim',
