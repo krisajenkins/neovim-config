@@ -121,7 +121,7 @@ return {
         -- Optional dependencies
         dependencies = {
             'nvim-treesitter/nvim-treesitter',
-            'nvim-tree/nvim-web-devicons',
+            'echasnovski/mini.nvim',
         },
         keys = {
             { '<Leader>gm', '<cmd>AerialToggle!<CR>', desc = 'Toggle Aerial' },

@@ -2,14 +2,6 @@ return {
     { 'tomasr/molokai' },
     { 'ellisonleao/gruvbox.nvim' },
 
-    {
-        'grapp-dev/nui-components.nvim',
-        dependencies = {
-            'MunifTanjim/nui.nvim',
-        },
-    },
-
-    'nvim-tree/nvim-web-devicons', -- Pretty fonticons.
     'MunifTanjim/nui.nvim',
 
     {
@@ -20,6 +12,15 @@ return {
             -- require('mini.indentscope').setup()
             require('mini.ai').setup()
             require('mini.starter').setup()
+            -- mini.icons setup - provides nvim-web-devicons compatibility
+            local miniicons = require('mini.icons')
+            miniicons.setup({
+                -- Use 'glyph' style for Nerd Font icons
+                style = 'glyph',
+            })
+            -- Enable nvim-web-devicons compatibility
+            miniicons.mock_nvim_web_devicons()
+
             require('mini.bracketed').setup()
             local MiniJump2d = require('mini.jump2d')
             local single_character = MiniJump2d.builtin_opts.single_character
@@ -64,7 +65,7 @@ return {
 
     {
         'folke/trouble.nvim', -- Error list.
-        dependencies = { 'nvim-tree/nvim-web-devicons' },
+        dependencies = { 'echasnovski/mini.nvim' },
         opts = {
             focus = false,
             modes = {
