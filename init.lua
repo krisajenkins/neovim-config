@@ -37,7 +37,7 @@ vim.opt.updatetime = 250
 ------------------------------------------------------------
 -- Lazy Plugins
 ------------------------------------------------------------
-require("config.lazy")
+require('config.lazy')
 vim.keymap.set('n', '<Leader>lp', ':Lazy profile<CR>', { desc = '[L]azy [P]rofile' })
 
 ------------------------------------------------------------
