@@ -14,7 +14,8 @@ return {
                 end,
                 open_mapping = nil, -- We'll use custom mappings
                 hide_numbers = true,
-                shade_terminals = true,
+                shade_terminals = false,
+                auto_scroll = false,
                 start_in_insert = true,
                 insert_mappings = false,
                 terminal_mappings = true,
@@ -23,7 +24,6 @@ return {
                 direction = 'float',
                 close_on_exit = true,
                 shell = vim.o.shell,
-                auto_scroll = true,
                 float_opts = {
                     border = 'curved',
                     width = function()
@@ -87,6 +87,17 @@ return {
             vim.keymap.set({ 'n', 't' }, '<C-,>', function()
                 claude_term:toggle()
             end, { desc = 'Toggle Claude' })
+
+            -- Send visual selection to the current preferred agent.
+            vim.keymap.set('v', '<leader>t', function()
+                require('toggleterm').send_lines_to_terminal(
+                    'visual_selection',
+                    true,
+                    { args = claude_term.count }
+                )
+                claude_term:open()
+                vim.cmd('startinsert')
+            end, { desc = 'Send selection to Claude' })
         end,
     },
 }
