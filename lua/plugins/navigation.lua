@@ -109,6 +109,73 @@ return {
     },
 
     {
+        'folke/flash.nvim',
+        event = 'VeryLazy',
+        opts = {
+            modes = {
+                char = {
+                    jump_labels = true, -- Show labels for f/F/t/T
+                },
+                search = {
+                    enabled = true, -- Show labels during / search
+                },
+            },
+            highlight = {
+                backdrop = true,
+            },
+        },
+        config = function(_, opts)
+            require('flash').setup(opts)
+            -- Molokai-friendly colors
+            vim.api.nvim_set_hl(0, 'FlashLabel', { fg = '#000000', bg = '#F92672', bold = true }) -- Molokai pink
+            vim.api.nvim_set_hl(0, 'FlashMatch', { fg = '#A6E22E', underline = true }) -- Molokai green
+            vim.api.nvim_set_hl(0, 'FlashCurrent', { fg = '#66D9EF', bold = true }) -- Molokai cyan
+        end,
+        keys = {
+            {
+                's',
+                mode = { 'n', 'x', 'o' },
+                function()
+                    require('flash').jump()
+                end,
+                desc = 'Flash',
+            },
+            {
+                'S',
+                mode = { 'n', 'x', 'o' },
+                function()
+                    require('flash').treesitter()
+                end,
+                desc = 'Flash Treesitter',
+            },
+            {
+                '<Leader>w',
+                mode = 'n',
+                function()
+                    require('flash').jump()
+                end,
+                desc = 'Flash Jump',
+            },
+            {
+                'r',
+                mode = 'o',
+                function()
+                    require('flash').remote()
+                end,
+                desc = 'Remote Flash',
+            },
+            {
+                'R',
+                mode = { 'o', 'x' },
+                function()
+                    require('flash').treesitter_search()
+                end,
+                desc = 'Treesitter Search',
+            },
+        },
+    },
+
+    {
         'stevearc/aerial.nvim',
         opts = {},
         -- Optional dependencies
