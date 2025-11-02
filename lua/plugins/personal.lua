@@ -8,7 +8,7 @@ return {
         end,
     },
     {
-        'krisajenkins/NeoJJ',
+        'krisajenkins/neojj',
         dev = true,
         config = function()
             local neojj = require('neojj')
