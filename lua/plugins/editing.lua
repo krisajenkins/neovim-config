@@ -5,7 +5,9 @@ return {
             local conform = require('conform')
             conform.setup({
                 formatters_by_ft = {
+                    arduino = { 'clang-format' },
                     c = { 'clang-format' },
+                    cpp = { 'clang-format' },
                     css = { 'prettier' },
                     dhall = { 'dhall' },
                     erlang = { 'erlfmt' },
