@@ -1,5 +1,13 @@
 return {
     {
+        'krisajenkins/oversight-nvim',
+        dev = true,
+        config = function()
+            local oversight = require('oversight')
+            oversight.setup()
+        end,
+    },
+    {
         'krisajenkins/NeoJJ',
         dev = true,
         config = function()
