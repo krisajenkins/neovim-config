@@ -3,6 +3,10 @@
     "branch": "master",
     "commit": "8bb8697d180681746da41bef5c8691d04443af36"
   },
+  "blink.cmp": {
+    "branch": "main",
+    "commit": "b19413d214068f316c78978b08264ed1c41830ec"
+  },
   "checkmate.nvim": {
     "branch": "main",
     "commit": "fc8edd6ecf8e4095ef878780e4bed83cc5c56c14"
@@ -30,6 +34,10 @@
   "executor.nvim": {
     "branch": "main",
     "commit": "56dfbe6f7fbf4a6ba7e5934df2d95810e0235f64"
+  },
+  "friendly-snippets": {
+    "branch": "main",
+    "commit": "572f5660cf05f8cd8834e096d7b4c921ba18e175"
   },
   "gitsigns.nvim": {
     "branch": "main",
