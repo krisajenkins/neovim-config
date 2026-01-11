@@ -105,19 +105,18 @@ return {
             })
 
             require('mini.bracketed').setup()
-            -- Disabled in favor of flash.nvim
-            -- local MiniJump2d = require('mini.jump2d')
-            -- local single_character = MiniJump2d.builtin_opts.single_character
-            -- MiniJump2d.setup({
-            --     view = { dim = true },
-            --     spotter = single_character.spotter,
-            --     hooks = { after_jump = single_character.hooks.after_jump },
-            --     mappings = { start_jumping = '' },
-            --     silent = true,
-            -- })
-            -- vim.keymap.set('n', '<Leader>w', function()
-            --     MiniJump2d.start(MiniJump2d.builtin_opts.single_character)
-            -- end, { desc = 'Jump to Char' })
+            local MiniJump2d = require('mini.jump2d')
+            local single_character = MiniJump2d.builtin_opts.single_character
+            MiniJump2d.setup({
+                view = { dim = true },
+                spotter = single_character.spotter,
+                hooks = { after_jump = single_character.hooks.after_jump },
+                mappings = { start_jumping = '' },
+                silent = true,
+            })
+            vim.keymap.set('n', '<Leader>w', function()
+                MiniJump2d.start(MiniJump2d.builtin_opts.single_character)
+            end, { desc = 'Jump to Char' })
 
             require('mini.trailspace').setup({
                 only_in_normal_buffers = true,
