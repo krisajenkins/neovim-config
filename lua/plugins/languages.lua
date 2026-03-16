@@ -5,6 +5,15 @@ return {
         config = function(plugin)
             -- Register custom Allium treesitter parser
             local parser_config = require('nvim-treesitter.parsers').get_parser_configs()
+            parser_config.strategy = {
+                install_info = {
+                    url = 'https://github.com/krisajenkins/tree-sitter-strategy',
+                    files = { 'src/parser.c' },
+                    branch = 'main',
+                },
+                filetype = 'strategy',
+            }
+
             parser_config.allium = {
                 install_info = {
                     url = 'https://github.com/juxt/allium-tools',
