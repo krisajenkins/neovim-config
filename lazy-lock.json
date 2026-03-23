@@ -3,13 +3,9 @@
     "branch": "master",
     "commit": "645d108a5242ec7b378cbe643eb6d04d4223f034"
   },
-  "allium-tools": {
-    "branch": "main",
-    "commit": "5d44ad59b925d4104c65c74175a7b78ea9fc4cbc"
-  },
   "blink.cmp": {
     "branch": "main",
-    "commit": "4b18c32adef2898f95cdef6192cbd5796c1a332d"
+    "commit": "451168851e8e2466bc97ee3e026c3dcb9141ce07"
   },
   "checkmate.nvim": {
     "branch": "main",
@@ -49,7 +45,7 @@
   },
   "ide-tools": {
     "branch": "master",
-    "commit": "16a9d0a90e8de5c65851417c4390d0cefc672521"
+    "commit": "3dffcd14c522de746fbda7e6aaf7d7b415f44447"
   },
   "lazy.nvim": {
     "branch": "main",
@@ -71,9 +67,13 @@
     "branch": "main",
     "commit": "de740991c12411b663994b2860f1a4fd0937c130"
   },
+  "nvim-allium": {
+    "branch": "main",
+    "commit": "4b6b2aa4007f3a7fea47c209db9862511943f7b1"
+  },
   "nvim-asciidoc-preview": {
     "branch": "main",
-    "commit": "b4bf18672d08aea21c19375b7fd4aba5621dfe9a"
+    "commit": "ae35f927b9444e192b0266c537e1f1fa1fd9a573"
   },
   "nvim-comment": {
     "branch": "main",
@@ -85,7 +85,7 @@
   },
   "nvim-dap-ui": {
     "branch": "master",
-    "commit": "cf91d5e2d07c72903d052f5207511bf7ecdb7122"
+    "commit": "f5b6673f374626515401c5bc51b005f784a4f252"
   },
   "nvim-dap-virtual-text": {
     "branch": "master",
@@ -101,7 +101,7 @@
   },
   "nvim-treesitter": {
     "branch": "master",
-    "commit": "42fc28ba918343ebfd5565147a42a26580579482"
+    "commit": "cf12346a3414fa1b06af75c79faebe7f76df080a"
   },
   "nvim-ufo": {
     "branch": "main",
@@ -145,7 +145,7 @@
   },
   "treesj": {
     "branch": "main",
-    "commit": "186084dee5e9c8eec40f6e39481c723dd567cb05"
+    "commit": "26bc2a8432ba3ea79ed6aa346fba780a3d372570"
   },
   "trouble.nvim": {
     "branch": "main",
