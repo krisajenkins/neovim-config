@@ -1,5 +1,4 @@
 vim.lsp.enable({
-    'allium_lsp',
     'lua_ls',
     'hls',
     'clangd',

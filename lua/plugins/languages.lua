@@ -1,4 +1,13 @@
 return {
+    -- lazy.nvim
+    {
+        'juxt/nvim-allium',
+        ft = { 'allium' },
+        opts = {},
+        dependencies = {
+            'nvim-treesitter/nvim-treesitter',
+        },
+    },
     { -- Project parser/watcher
         'nvim-treesitter/nvim-treesitter',
         build = ':TSUpdate',
@@ -14,19 +23,10 @@ return {
                 filetype = 'strategy',
             }
 
-            parser_config.allium = {
-                install_info = {
-                    url = 'https://github.com/juxt/allium-tools',
-                    files = { 'src/parser.c' },
-                    location = 'packages/tree-sitter-allium',
-                    branch = 'main',
-                },
-                filetype = 'allium',
-            }
-
             require('nvim-treesitter.configs').setup({
                 modules = {},
                 ensure_installed = {
+                    'allium',
                     'gleam',
                     'html',
                     'javascript',
