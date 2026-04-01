@@ -6,7 +6,8 @@ vim.g.mapleader = ','
 vim.g.maplocalleader = ','
 vim.g.do_filetype_lua = 1
 
-vim.opt.diffopt = 'iwhite,filler,context:20,algorithm:histogram'
+vim.opt.diffopt = 'iwhite,filler,context:20,algorithm:histogram,inline:word'
+vim.opt.pumborder = true
 vim.opt.exrc = true
 vim.opt.signcolumn = 'yes'
 vim.opt.wrap = true
@@ -47,6 +48,7 @@ vim.keymap.set('n', '<Leader>lp', ':Lazy profile<CR>', { desc = '[L]azy [P]rofil
 ------------------------------------------------------------
 
 -- Colorscheme
+require('vim._core.ui2').enable()
 vim.cmd('colorscheme molokai')
 -- vim.cmd('colorscheme gruvbox')
 
