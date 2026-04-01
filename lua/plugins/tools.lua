@@ -1,169 +1,83 @@
-return {
-    { -- Magit
-        'krisajenkins/neogit',
-        dir = '/Users/krisjenkins/Work/ThirdParty/neogit',
-        dev = true,
-        dependencies = {
-            'nvim-lua/plenary.nvim',
-            'sindrets/diffview.nvim',
-        },
-        event = 'VeryLazy',
-        config = function()
-            require('neogit').setup({})
-            vim.keymap.set(
-                'n',
-                '<Leader>gs',
-                ':Neogit cwd=%:p:h<CR>',
-                { desc = 'Git [S]tatus', noremap = true }
-            )
-        end,
-    },
+-- Neogit (dev plugin)
+require('neogit').setup({})
+vim.keymap.set(
+    'n',
+    '<Leader>gs',
+    ':Neogit cwd=%:p:h<CR>',
+    { desc = 'Git [S]tatus', noremap = true }
+)
 
-    { -- Git Status hints in the left of the buffer
-        'lewis6991/gitsigns.nvim',
-        opts = {
-            signs = {
-                add = { text = '+' },
-                change = { text = '│' },
-                delete = { text = '-' },
-                topdelete = { text = '‾' },
-                changedelete = { text = '~' },
-                untracked = { text = '?' },
-            },
-        },
+-- Gitsigns
+require('gitsigns').setup({
+    signs = {
+        add = { text = '+' },
+        change = { text = '│' },
+        delete = { text = '-' },
+        topdelete = { text = '‾' },
+        changedelete = { text = '~' },
+        untracked = { text = '?' },
     },
+})
 
+-- DAP (Debug Adapter Protocol)
+local dap = require('dap')
+dap.adapters.python = {
+    type = 'executable',
+    command = 'python',
+    args = { '-m', 'debugpy.adapter' },
+}
+dap.configurations.python = {
     {
-        'mfussenegger/nvim-dap',
-        config = function()
-            local dap = require('dap')
-            -- dap.set_log_level('TRACE')
-            dap.adapters.python = {
-                type = 'executable',
-                command = 'python',
-                args = { '-m', 'debugpy.adapter' },
-            }
-            dap.configurations.python = {
-                {
-                    type = 'python',
-                    name = 'Launch File',
-                    request = 'launch',
-                    program = '${file}',
-                },
-            }
-            vim.keymap.set(
-                'n',
-                '<Leader>db',
-                dap.toggle_breakpoint,
-                { desc = '[D]ebug [B]reakpoint' }
-            )
-            vim.keymap.set('n', '<Leader>dr', dap.repl.toggle, { desc = '[D]ebug [R]epl' })
-            vim.keymap.set('n', '<Leader>dc', dap.continue, { desc = '[D]ebug [C]ontinue' })
-            vim.keymap.set('n', '<Leader>do', dap.step_over, { desc = '[D]ebug step [O]ver' })
-            vim.keymap.set('n', '<Leader>du', dap.step_out, { desc = '[D]ebug step o[U]t' })
-            vim.keymap.set('n', '<Leader>di', dap.step_into, { desc = '[D]ebug step [I]nto' })
-        end,
-    },
-
-    {
-        'rcarriga/nvim-dap-ui',
-        dependencies = { 'mfussenegger/nvim-dap', 'nvim-neotest/nvim-nio' },
-        config = function()
-            local dapui = require('dapui')
-            dapui.setup()
-            vim.keymap.set('n', '<Leader>dp', dapui.toggle, { desc = '[D]ebug [P]anels' })
-            vim.keymap.set('n', '<Leader>dh', function()
-                dapui.float_element('scopes')
-            end, { desc = '[D]ebug [H]over scopes' })
-        end,
-    },
-
-    {
-        'theHamsta/nvim-dap-virtual-text',
-        dependencies = { 'mfussenegger/nvim-dap' },
-        opts = {},
-    },
-
-    { -- Database tools
-        'tpope/vim-dadbod',
-        event = 'VeryLazy',
-        config = function() end,
-    },
-
-    {
-        'google/executor.nvim',
-        dependencies = {
-            'MunifTanjim/nui.nvim',
-        },
-        event = 'VeryLazy',
-        config = function()
-            local executor = require('executor')
-            executor.setup { use_split = false }
-            vim.keymap.set('n', '<leader>xr', executor.commands.run, { desc = 'e[X]ecutor [R]un' })
-            vim.keymap.set(
-                'n',
-                '<leader>xv',
-                executor.commands.toggle_detail,
-                { desc = 'e[X]ecutor [V]iew' }
-            )
-        end,
-    },
-
-    -- {
-    --     'https://codeberg.org/esensar/nvim-dev-container',
-    --     event = 'VeryLazy',
-    --     dependencies = { 'nvim-treesitter/nvim-treesitter' },
-    --     opts = {},
-    -- },
-
-    {
-        'iamcco/markdown-preview.nvim',
-        ft = { 'markdown' },
-        build = function()
-            vim.fn['mkdp#util#install']()
-        end,
-    },
-
-    {
-        'tigion/nvim-asciidoc-preview',
-        cmd = { 'AsciiDocPreview' },
-        ft = { 'asciidoc' },
-        build = 'cd server && npm install',
-        opts = {
-            -- Add user configuration here
-        },
-    },
-
-    {
-        -- Nice formatting for TODO.md files.
-        'bngarren/checkmate.nvim',
-        ft = 'markdown', -- Lazy loads for Markdown files matching patterns in 'files'
-        opts = {
-            -- your configuration here
-            -- or leave empty to use defaults
-            files = {
-                'todo',
-                'TODO',
-                'todo.md',
-                'TODO.md',
-                'TODO*.md',
-            },
-        },
-    },
-
-    {
-        'hat0uma/csvview.nvim',
-        ft = { 'csv' },
-        opts = {
-            view = {
-                display_mode = 'border',
-            },
-            keymaps = {
-                jump_next_field_end = { '<Tab>', mode = { 'n', 'v' } },
-                jump_prev_field_end = { '<S-Tab>', mode = { 'n', 'v' } },
-                textobject_field_inner = { 'if', mode = { 'o', 'x' } },
-                textobject_field_outer = { 'af', mode = { 'o', 'x' } },
-            },
-        },
+        type = 'python',
+        name = 'Launch File',
+        request = 'launch',
+        program = '${file}',
     },
 }
+vim.keymap.set('n', '<Leader>db', dap.toggle_breakpoint, { desc = '[D]ebug [B]reakpoint' })
+vim.keymap.set('n', '<Leader>dr', dap.repl.toggle, { desc = '[D]ebug [R]epl' })
+vim.keymap.set('n', '<Leader>dc', dap.continue, { desc = '[D]ebug [C]ontinue' })
+vim.keymap.set('n', '<Leader>do', dap.step_over, { desc = '[D]ebug step [O]ver' })
+vim.keymap.set('n', '<Leader>du', dap.step_out, { desc = '[D]ebug step o[U]t' })
+vim.keymap.set('n', '<Leader>di', dap.step_into, { desc = '[D]ebug step [I]nto' })
+
+-- DAP UI
+local dapui = require('dapui')
+dapui.setup()
+vim.keymap.set('n', '<Leader>dp', dapui.toggle, { desc = '[D]ebug [P]anels' })
+vim.keymap.set('n', '<Leader>dh', function()
+    dapui.float_element('scopes')
+end, { desc = '[D]ebug [H]over scopes' })
+
+-- DAP Virtual Text
+require('nvim-dap-virtual-text').setup({})
+
+-- Executor
+local executor = require('executor')
+executor.setup({ use_split = false })
+vim.keymap.set('n', '<leader>xr', executor.commands.run, { desc = 'e[X]ecutor [R]un' })
+vim.keymap.set('n', '<leader>xv', executor.commands.toggle_detail, { desc = 'e[X]ecutor [V]iew' })
+
+-- Checkmate (TODO.md formatting)
+require('checkmate').setup({
+    files = {
+        'todo',
+        'TODO',
+        'todo.md',
+        'TODO.md',
+        'TODO*.md',
+    },
+})
+
+-- CSV viewer
+require('csvview').setup({
+    view = {
+        display_mode = 'border',
+    },
+    keymaps = {
+        jump_next_field_end = { '<Tab>', mode = { 'n', 'v' } },
+        jump_prev_field_end = { '<S-Tab>', mode = { 'n', 'v' } },
+        textobject_field_inner = { 'if', mode = { 'o', 'x' } },
+        textobject_field_outer = { 'af', mode = { 'o', 'x' } },
+    },
+})

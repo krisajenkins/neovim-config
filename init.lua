@@ -36,10 +36,9 @@ vim.opt.timeoutlen = 300
 vim.opt.updatetime = 250
 
 ------------------------------------------------------------
--- Lazy Plugins
+-- Plugins (vim.pack)
 ------------------------------------------------------------
-require('config.lazy')
-vim.keymap.set('n', '<Leader>lp', ':Lazy profile<CR>', { desc = '[L]azy [P]rofile' })
+require('config.pack')
 
 ------------------------------------------------------------
 -- Extra Config.

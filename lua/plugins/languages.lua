@@ -1,98 +1,63 @@
-return {
-    -- lazy.nvim
-    {
-        'juxt/nvim-allium',
-        ft = { 'allium' },
-        opts = {},
-        dependencies = {
-            'nvim-treesitter/nvim-treesitter',
-        },
-    },
-    {
-        dir = '~/Work/Tools/canon-languages/nvim',
-        ft = { 'strategy', 'landscape', 'life' },
-        event = 'VeryLazy',
-        dependencies = { 'nvim-treesitter/nvim-treesitter' },
-    },
-    { -- Project parser/watcher
-        'nvim-treesitter/nvim-treesitter',
-        build = ':TSUpdate',
-        config = function(plugin)
-            -- Register custom Allium treesitter parser
-            require('nvim-treesitter.configs').setup({
-                modules = {},
-                ensure_installed = {
-                    'allium',
-                    'gleam',
-                    'html',
-                    'javascript',
-                    'lua',
-                    'kdl',
-                    'markdown_inline',
-                    'jsonc',
-                    'org',
-                    'sql',
-                    'toml',
-                    'unison',
-                    'purescript',
-                    'typescript',
-                    'vim',
-                    'vimdoc',
-                },
-                sync_install = false,
-                highlight = { enable = true },
-                indent = { enable = true },
-                auto_install = true,
-                ignore_install = {},
-            })
-        end,
-    },
+-- Treesitter (new API - highlighting/indenting are built-in via vim.treesitter)
+-- Just ensure parsers are installed
+vim.api.nvim_create_autocmd('VimEnter', {
+    callback = function()
+        local parsers = {
+            'allium',
+            'gleam',
+            'html',
+            'javascript',
+            'lua',
+            'kdl',
+            'markdown_inline',
+            'jsonc',
+            'org',
+            'sql',
+            'toml',
+            'unison',
+            'purescript',
+            'typescript',
+            'vim',
+            'vimdoc',
+        }
+        for _, lang in ipairs(parsers) do
+            pcall(function()
+                vim.treesitter.language.add(lang)
+            end)
+        end
+    end,
+})
 
-    { -- Purescript Support
-        'purescript-contrib/purescript-vim',
-        ft = { 'purescript' },
-    },
+-- Allium
+local ok_allium, nvim_allium = pcall(require, 'nvim-allium')
+if ok_allium then
+    nvim_allium.setup({})
+end
 
-    { 'ckipp01/stylua-nvim', ft = { 'lua' } },
+-- Render markdown (disabled by default, toggle with <Leader>rm)
+require('render-markdown').setup({
+    enabled = false,
+    render_modes = { 'n', 'c' },
+})
 
-    { 'bakudankun/pico-8.vim', ft = { 'pico8' } },
+vim.keymap.set('n', '<Leader>rm', function()
+    local rm = require('render-markdown')
+    rm.toggle()
+    local state = require('render-markdown.state')
+    if state.enabled then
+        vim.opt_local.conceallevel = 2
+    else
+        vim.opt_local.conceallevel = 0
+    end
+end, { desc = '[R]ender [M]arkdown toggle' })
 
-    { -- Render markdown in-buffer (opt-in via <Leader>rm)
-        'MeanderingProgrammer/render-markdown.nvim',
-        ft = { 'markdown' },
-        dependencies = { 'nvim-treesitter/nvim-treesitter' },
-        opts = {
-            enabled = false, -- Don't auto-enable; toggle with :RenderMarkdown toggle
-            render_modes = { 'n', 'c' }, -- Only render in normal/command mode, not insert
-        },
-        keys = {
-            {
-                '<Leader>rm',
-                function()
-                    local rm = require('render-markdown')
-                    rm.toggle()
-                    -- Adjust conceallevel when toggling
-                    local state = require('render-markdown.state')
-                    if state.enabled then
-                        vim.opt_local.conceallevel = 2
-                    else
-                        vim.opt_local.conceallevel = 0
-                    end
-                end,
-                ft = 'markdown',
-                desc = '[R]ender [M]arkdown toggle',
-            },
-        },
-    },
-
-    {
-        'toitware/ide-tools',
-        ft = { 'toit' },
-        config = function(plugin)
-            vim.opt.rtp:append(plugin.dir .. '/start/vim')
-        end,
-        init = function(plugin)
-            require('lazy.core.loader').ftdetect(plugin.dir .. '/start/vim')
-        end,
-    },
-}
+-- Toit IDE tools
+vim.api.nvim_create_autocmd('FileType', {
+    pattern = 'toit',
+    callback = function()
+        local ide_tools_path = vim.fn.stdpath('data') .. '/site/pack/core/opt/ide-tools/start/vim'
+        if vim.fn.isdirectory(ide_tools_path) == 1 then
+            vim.opt.rtp:append(ide_tools_path)
+        end
+    end,
+})
