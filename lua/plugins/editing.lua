@@ -94,13 +94,6 @@ return {
         opts = {},
     },
 
-    { -- Comment-out support
-        'terrortylor/nvim-comment',
-        config = function()
-            require('nvim_comment').setup()
-        end,
-    },
-
     { -- Case-intelligent search & replace.
         'tpope/vim-abolish',
     },

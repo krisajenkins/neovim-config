@@ -34,13 +34,6 @@ return {
     },
 
     {
-        'mbbill/undotree',
-        keys = {
-            { '<Leader>u', ':UndotreeToggle<CR>', desc = 'Undo tree' },
-        },
-    },
-
-    {
         'mfussenegger/nvim-dap',
         config = function()
             local dap = require('dap')

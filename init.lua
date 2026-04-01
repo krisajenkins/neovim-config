@@ -54,6 +54,7 @@ vim.cmd('colorscheme molokai')
 
 -- Diagnostics are now handled by LSP plugin mappings
 vim.keymap.set('n', '<Leader>m', ':write<CR>:make<CR>', { desc = '[M]ake' })
+vim.keymap.set('n', '<Leader>u', ':Undotree<CR>', { desc = '[U]ndo tree' })
 
 -- Syntax highlighting customisation.
 vim.api.nvim_set_hl(0, 'Comment', { link = 'String' })
