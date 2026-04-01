@@ -28,7 +28,6 @@ return {
                     'javascript',
                     'lua',
                     'kdl',
-                    'markdown',
                     'markdown_inline',
                     'jsonc',
                     'org',
