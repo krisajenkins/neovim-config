@@ -58,6 +58,25 @@ vim.api.nvim_set_hl(0, 'Comment', { link = 'String' })
 vim.api.nvim_set_hl(0, 'IncSearch', { link = 'CurSearch' })
 vim.api.nvim_set_hl(0, '@org.keyword.todo', { link = 'PreProc' })
 
+-- Show user-placed marks in the signcolumn (Neovim 0.12 MarkSet event)
+vim.api.nvim_create_autocmd('MarkSet', {
+    desc = 'Display marks in the signcolumn',
+    callback = function(ev)
+        local mark = ev.data and ev.data.mark
+        if not mark or not mark:match('^[a-zA-Z]$') then
+            return
+        end
+        local pos = vim.api.nvim_buf_get_mark(ev.buf, mark)
+        if pos[1] == 0 then
+            return
+        end
+        local name = 'UserMark_' .. mark
+        vim.fn.sign_define(name, { text = mark, texthl = 'Identifier' })
+        vim.fn.sign_unplace('UserMarks', { buffer = ev.buf, id = mark:byte() })
+        vim.fn.sign_place(mark:byte(), 'UserMarks', name, ev.buf, { lnum = pos[1], priority = 10 })
+    end,
+})
+
 vim.api.nvim_create_autocmd('QuickFixCmdPost', {
     desc = 'Open quickfix window if there are results.',
     pattern = '[^l]*',
@@ -68,5 +87,6 @@ vim.api.nvim_create_autocmd('QuickFixCmdPost', {
 
 vim.keymap.set('n', '<leader>v', function()
     vim.cmd(':wall')
-    vim.cmd(':source')
+    vim.cmd(':mksession! /tmp/nvim-restart.vim')
+    vim.cmd(':restart -S /tmp/nvim-restart.vim')
 end, { desc = "Run the thing you're de[V]eloping" })

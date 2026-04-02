@@ -51,7 +51,8 @@ vim.keymap.set('n', '<Leader>w', function()
 end, { desc = 'Jump to Char' })
 
 require('mini.trailspace').setup({ only_in_normal_buffers = true })
-require('mini.statusline').setup()
+-- Trying the native 0.12 default statusline instead of mini.statusline
+-- require('mini.statusline').setup()
 require('mini.notify').setup()
 require('mini.align').setup()
 

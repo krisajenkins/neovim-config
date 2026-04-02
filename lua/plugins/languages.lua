@@ -1,29 +1,33 @@
--- Treesitter (new API - highlighting/indenting are built-in via vim.treesitter)
--- Just ensure parsers are installed
+-- Enable treesitter highlighting for any buffer that has a parser available
+vim.api.nvim_create_autocmd('FileType', {
+    callback = function(ev)
+        pcall(vim.treesitter.start, ev.buf)
+    end,
+})
+
+-- Treesitter parser installation (deferred to avoid slowing startup)
+local parsers = {
+    'gleam',
+    'html',
+    'javascript',
+    'lua',
+    'kdl',
+    'markdown_inline',
+    'sql',
+    'toml',
+    'unison',
+    'purescript',
+    'typescript',
+    'vim',
+    'vimdoc',
+}
+
 vim.api.nvim_create_autocmd('VimEnter', {
     callback = function()
-        local parsers = {
-            'allium',
-            'gleam',
-            'html',
-            'javascript',
-            'lua',
-            'kdl',
-            'markdown_inline',
-            'jsonc',
-            'org',
-            'sql',
-            'toml',
-            'unison',
-            'purescript',
-            'typescript',
-            'vim',
-            'vimdoc',
-        }
+        local install = require('nvim-treesitter.install')
         for _, lang in ipairs(parsers) do
-            pcall(function()
-                vim.treesitter.language.add(lang)
-            end)
+            -- install() is a no-op if the parser is already present and up to date
+            install.install(lang)
         end
     end,
 })
