@@ -9,8 +9,6 @@ vim.opt.rtp:prepend(vim.fn.expand('~/Work/Tools/canon-languages/nvim'))
 -- All remote plugins
 local plugins = {
     'https://github.com/tomasr/molokai',
-    'https://github.com/saghen/blink.cmp',
-    'https://github.com/rafamadriz/friendly-snippets',
     'https://github.com/stevearc/conform.nvim',
     'https://github.com/kylechui/nvim-surround',
     'https://github.com/tpope/vim-abolish',
