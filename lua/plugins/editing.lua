@@ -11,7 +11,7 @@ conform.setup({
         gleam = { 'gleam' },
         elm = { 'elm_format' },
         html = { 'prettier' },
-        haskell = { 'ormolu' },
+        haskell = { 'fourmolu' },
         javascript = { 'prettier' },
         json = { 'jq' },
         lua = { 'stylua' },
