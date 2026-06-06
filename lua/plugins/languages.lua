@@ -8,6 +8,7 @@ vim.api.nvim_create_autocmd('FileType', {
 -- Treesitter parser installation (deferred to avoid slowing startup)
 local parsers = {
     'gleam',
+    'haskell',
     'html',
     'javascript',
     'lua',
