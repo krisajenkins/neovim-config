@@ -1,6 +1,15 @@
 -- Native 0.12 autocomplete: buffer/path/etc. sources without a trigger key
 vim.o.autocomplete = true
 
+-- Telescope is itself a fuzzy-finder, so the native popup just fights it.
+vim.api.nvim_create_autocmd('FileType', {
+    group = vim.api.nvim_create_augroup('UserNoAutocompleteInTelescope', {}),
+    pattern = 'TelescopePrompt',
+    callback = function(ev)
+        vim.bo[ev.buf].autocomplete = false
+    end,
+})
+
 -- Don't auto-select or auto-insert a popup item: only <C-n>/<C-p> should
 -- choose a completion, and only <C-y>/<Tab> should accept it. Without
 -- noinsert/noselect, typing any non-popup key (e.g. '.') accepts the
