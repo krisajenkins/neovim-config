@@ -31,6 +31,7 @@ local plugins = {
     'https://github.com/elihunter173/dirbuf.nvim',
     'https://github.com/stevearc/aerial.nvim',
     'https://github.com/akinsho/toggleterm.nvim',
+    'https://github.com/coder/claudecode.nvim',
     'https://github.com/lewis6991/gitsigns.nvim',
     'https://github.com/sindrets/diffview.nvim',
     'https://github.com/mfussenegger/nvim-dap',

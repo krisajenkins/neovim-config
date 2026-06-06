@@ -12,6 +12,10 @@
       "rev": "fc8edd6ecf8e4095ef878780e4bed83cc5c56c14",
       "src": "https://github.com/bngarren/checkmate.nvim"
     },
+    "claudecode.nvim": {
+      "rev": "7c7d47e75d1c8597a676ca20b36a8b85a776ac61",
+      "src": "https://github.com/coder/claudecode.nvim"
+    },
     "conform.nvim": {
       "rev": "086a40dc7ed8242c03be9f47fbcee68699cc2395",
       "src": "https://github.com/stevearc/conform.nvim"

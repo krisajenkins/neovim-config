@@ -72,6 +72,44 @@ vim.keymap.set({ 'n', 't' }, '<leader>ao', function()
     opencode_term:toggle()
 end, { desc = 'Toggle OpenCode' })
 
+-- claudecode.nvim: MCP/WebSocket integration with the Claude Code CLI.
+-- Uses the native terminal provider so we don't depend on snacks.nvim.
+-- Keys live under <leader>a but avoid ac/ag/ao (toggleterm agents above).
+require('claudecode').setup({
+    terminal = {
+        provider = 'native',
+    },
+})
+
+vim.keymap.set({ 'n', 't' }, '<leader>aC', '<Cmd>ClaudeCode<CR>', { desc = 'Toggle ClaudeCode' })
+vim.keymap.set('n', '<leader>af', '<Cmd>ClaudeCodeFocus<CR>', { desc = 'Focus ClaudeCode' })
+vim.keymap.set('n', '<leader>ar', '<Cmd>ClaudeCode --resume<CR>', { desc = 'Resume ClaudeCode' })
+vim.keymap.set(
+    'n',
+    '<leader>ab',
+    '<Cmd>ClaudeCodeAdd %<CR>',
+    { desc = 'Add current buffer to ClaudeCode' }
+)
+vim.keymap.set(
+    'v',
+    '<leader>as',
+    '<Cmd>ClaudeCodeSend<CR>',
+    { desc = 'Send selection to ClaudeCode' }
+)
+vim.keymap.set(
+    'n',
+    '<leader>am',
+    '<Cmd>ClaudeCodeSelectModel<CR>',
+    { desc = 'Select ClaudeCode model' }
+)
+vim.keymap.set(
+    'n',
+    '<leader>aa',
+    '<Cmd>ClaudeCodeDiffAccept<CR>',
+    { desc = 'Accept ClaudeCode diff' }
+)
+vim.keymap.set('n', '<leader>ad', '<Cmd>ClaudeCodeDiffDeny<CR>', { desc = 'Deny ClaudeCode diff' })
+
 -- Even shorter keymap for my current preferred agent.
 vim.keymap.set({ 'n', 't' }, '<C-,>', function()
     claude_term:toggle()
