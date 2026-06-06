@@ -1,5 +1,5 @@
 vim.filetype.add({
     extension = {
-        svelte = 'typescript',
+        svelte = 'svelte',
     },
 })

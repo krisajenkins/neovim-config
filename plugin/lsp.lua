@@ -13,6 +13,7 @@ vim.lsp.enable({
     'mojo',
     'purescriptls',
     'ts_ls',
+    'svelte',
     'pylsp',
 })
 

@@ -14,6 +14,7 @@ local parsers = {
     'kdl',
     'markdown_inline',
     'sql',
+    'svelte',
     'toml',
     'unison',
     'purescript',
