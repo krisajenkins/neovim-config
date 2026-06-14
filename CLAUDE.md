@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Overview
 
-This is a modern Neovim configuration using Lua with lazy.nvim as the plugin manager. The configuration emphasizes modularity, with plugins organized into categories based on stability and purpose.
+This is a modern Neovim configuration using Lua with the built-in `vim.pack` (Neovim 0.12+) as the plugin manager. The configuration emphasizes modularity, with plugins organized into categories based on stability and purpose.
 
 ## Version Control
 
@@ -19,7 +19,7 @@ We use Jujutsu v0.35 for version control. All commands begin with `jj`.
 stylua lua/
 ```
 
-Development plugins live in `~/Work/Tools/nvim/` and are loaded with `dev = true` in lazy.nvim specs.
+Development plugins live in `~/Work/Tools/nvim/` and are loaded by prepending them to the runtimepath in `lua/config/pack.lua`.
 
 ### Build Commands
 
@@ -30,7 +30,7 @@ Development plugins live in `~/Work/Tools/nvim/` and are loaded with `dev = true
 
 ### Plugin Organization
 
-Lazy.nvim plugins are organized by type under `lua/plugins/`:
+Remote plugins are declared in `lua/config/pack.lua` (the `vim.pack.add` list), which then `require`s the per-category config modules below. Plugin configs are organized by type under `lua/plugins/`:
 
 1. **completion.lua**: Completion engine (blink.cmp) and snippets
 2. **editing.lua**: Text manipulation, formatting (conform.nvim), commenting, surround
@@ -39,7 +39,7 @@ Lazy.nvim plugins are organized by type under `lua/plugins/`:
 5. **navigation.lua**: Telescope, file explorers (dirbuf), code outline (aerial)
 6. **terminals.lua**: Terminal management (toggleterm) with AI agent shortcuts
 7. **tools.lua**: Git (neogit, gitsigns), debugging (DAP), database (dadbod), previews, executor
-8. **personal.lua**: Personal plugin development (all marked with `dev = true`)
+8. **personal.lua**: Personal plugin development (loaded from the runtimepath, see `pack.lua`)
 
 Custom config scripts are auto-sourced from `plugin/`:
 
@@ -50,9 +50,9 @@ Custom config scripts are auto-sourced from `plugin/`:
 
 ### Plugin Loading
 
-- Uses lazy.nvim with automatic bootstrap in init.lua
-- Local development plugins loaded from `dev/` directory
-- Lock file: `lazy-lock.json`
+- `init.lua` requires `config.pack`, which calls `vim.pack.add()` to install/load remote plugins
+- Local development plugins are loaded via `vim.opt.rtp:prepend(...)` from `~/Work/Tools/nvim/` (and a few other paths) in `lua/config/pack.lua`
+- Lock file: `nvim-pack-lock.json`
 
 ### LSP Configuration
 
@@ -74,12 +74,12 @@ LSP servers are configured using the native `vim.lsp.enable()` API in `plugin/ls
 
 ### Active Development Projects
 
-Personal plugins under active development (in `personal.lua` with `dev = true`):
+Personal plugins under active development (configured in `personal.lua`):
 
 1. **oversight-nvim**: Process oversight plugin
 2. **NeoJJ**: Jujutsu integration for Neovim
 
-Development plugins are loaded from `~/Work/Tools/nvim/` (configured in `lua/config/lazy.lua`).
+Development plugins are loaded from `~/Work/Tools/nvim/` (runtimepath prepends in `lua/config/pack.lua`).
 
 # Finding Plugins
 
