@@ -24,6 +24,28 @@ local parsers = {
     'vimdoc',
 }
 
+-- Register the Allium parser with the new nvim-treesitter API. nvim-allium
+-- ships its own registration, but it targets the pre-rewrite API
+-- (get_parser_configs/install_info.files), which the current nvim-treesitter
+-- dropped, so we wire it up here instead. The installer reloads the parsers
+-- module from disk on every run (firing User TSUpdate), so we must re-add our
+-- entry on that event rather than mutating the table just once.
+local function register_allium()
+    require('nvim-treesitter.parsers').allium = {
+        install_info = {
+            url = 'https://github.com/juxt/tree-sitter-allium',
+            branch = 'master',
+        },
+        tier = 3,
+    }
+end
+register_allium()
+vim.api.nvim_create_autocmd('User', {
+    pattern = 'TSUpdate',
+    callback = register_allium,
+})
+table.insert(parsers, 'allium')
+
 vim.api.nvim_create_autocmd('VimEnter', {
     callback = function()
         local install = require('nvim-treesitter.install')
